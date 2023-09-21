@@ -1,21 +1,18 @@
-import { Box, Divider, Grid, Link, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Main from '../../layouts/Main/Main';
 import { grey } from '@mui/material/colors';
 import { Web3Button } from '@web3modal/react';
 import { BigNumber, ethers } from 'ethers';
-import theme from '../../theme';
-import IAiLogo from '../../components/logos/IAiLogo';
 import { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
 import Container from '../../components/Container';
 import PoolSelection from './components/poolSeclectionMUI/PoolSelection';
-import { ERC20BalanceOf, ERC721BalanceOf } from '../../components/contracts/wagmiContracts';
+import { ERC20BalanceOf } from '../../components/contracts/wagmiContracts';
 import SimpleAccordion from './components/information/accordian';
 
 function StakingConsole() {
   let [connectedAddress, setConnectedAddress] = useState<`0x${string}` | undefined>();
   let [iAIbalanceAmount, setiAIBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
-  let [NFTBalanceAmount, setNFTBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
   let { address, isConnected } = useAccount();
 
   // User erc20 Balance
@@ -26,13 +23,6 @@ function StakingConsole() {
     }
   }, [iAIBalanceData]);
 
-  // User erc721Balance
-  const NFTBalanceData = ERC721BalanceOf({ ownerAddress: connectedAddress! });
-  useEffect(() => {
-    if (NFTBalanceData) {
-      setNFTBalanceAmount(NFTBalanceData);
-    }
-  }, [NFTBalanceData]);
 
   // Save Connected Address to state
   useEffect(() => {

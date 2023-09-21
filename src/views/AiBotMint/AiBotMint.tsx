@@ -6,11 +6,10 @@ import Container from '../../components/Container';
 import { BigNumber, ethers } from 'ethers';
 import { Web3Button } from '@web3modal/react';
 import { useAccount, useContractWrite, useWaitForTransaction } from 'wagmi';
-import { MainButton, MintSlider } from '../../components/form/formElements';
-import IAiLogo from '../../components/logos/IAiLogo';
+import { MainButton } from '../../components/form/formElements';
 import theme from '../../theme';
 import { ContractAddress, WalletAddress } from '../../components/form/stakeElements';
-import { ERC20BalanceOf, ERC721BalanceOf } from '../../components/contracts/wagmiContracts';
+import { ERC20BalanceOf } from '../../components/contracts/wagmiContracts';
 import {
   ERC20Allowance,
   PoolPreparedContract,
@@ -40,11 +39,6 @@ function AiBotMint() {
   const allowanceData = ERC20Allowance({
     ownerAddress: connectedAddress,
     spenderAddress: Pool1ContractAddress
-  });
-
-  // Pool Balance
-  const poolBalanceData = ERC20BalanceOf({
-    ownerAddress: Pool1ContractAddress!
   });
 
   // Approve
@@ -130,7 +124,7 @@ function AiBotMint() {
                     </Grid>
                     <Grid item sm={12}>
                       <Typography fontSize={14} align="center" color="white">
-                        Mint an NFT to register you for you're own AI bot
+                        Mint an NFT to register you for you&apos;re own AI bot
                       </Typography>
                     </Grid>
                   </Grid>

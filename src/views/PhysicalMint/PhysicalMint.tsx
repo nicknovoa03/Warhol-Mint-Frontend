@@ -6,11 +6,10 @@ import Container from '../../components/Container';
 import { BigNumber, ethers } from 'ethers';
 import { Web3Button } from '@web3modal/react';
 import { useAccount, useContractWrite, useWaitForTransaction } from 'wagmi';
-import { MainButton, MintSlider } from '../../components/form/formElements';
-import IAiLogo from '../../components/logos/IAiLogo';
+import { MainButton } from '../../components/form/formElements';
 import theme from '../../theme';
 import { ContractAddress, WalletAddress } from '../../components/form/stakeElements';
-import { ERC20BalanceOf, ERC721BalanceOf } from '../../components/contracts/wagmiContracts';
+import { ERC20BalanceOf } from '../../components/contracts/wagmiContracts';
 import {
   ERC20Allowance,
   PoolPreparedContract,
@@ -42,10 +41,6 @@ function Pool1() {
     spenderAddress: Pool1ContractAddress
   });
 
-  // Pool Balance
-  const poolBalanceData = ERC20BalanceOf({
-    ownerAddress: Pool1ContractAddress!
-  });
 
   // Approve
   const approveConfig = ApprovePoolPreparedContract({
@@ -88,17 +83,6 @@ function Pool1() {
   useEffect(() => {
     setConnectedAddress(address);
   }, [isConnected]);
-
-  function isPositiveFloat(value: string) {
-    return /^\d+(\.\d+)?$/.test(value) && Number(value) >= 1;
-  }
-
-  function handleSlider(event: Event | React.SyntheticEvent, value: number | number[]) {
-    event.preventDefault();
-    if (!Array.isArray(value)) {
-      setMintAmount(value);
-    }
-  }
 
   return (
     <>

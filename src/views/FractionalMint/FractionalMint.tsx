@@ -7,10 +7,9 @@ import { BigNumber, ethers } from 'ethers';
 import { Web3Button } from '@web3modal/react';
 import { useAccount, useContractWrite, useWaitForTransaction } from 'wagmi';
 import { MainButton, MintSlider } from '../../components/form/formElements';
-import IAiLogo from '../../components/logos/IAiLogo';
 import theme from '../../theme';
 import { ContractAddress, WalletAddress } from '../../components/form/stakeElements';
-import { ERC20BalanceOf, ERC721BalanceOf } from '../../components/contracts/wagmiContracts';
+import { ERC20BalanceOf } from '../../components/contracts/wagmiContracts';
 import {
   ERC20Allowance,
   PoolPreparedContract,
@@ -19,7 +18,7 @@ import {
 import { Pool1ContractAddress } from '../../components/contracts/contractAddresses';
 import { parseEther } from 'viem';
 import Image from 'next/image';
-import WarholImage from '../../../public/NFT-image.png'
+import WarholImage from '../../../public/NFT-image.png';
 
 function FractionalMint() {
   let [balanceAmount, setBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
@@ -42,10 +41,6 @@ function FractionalMint() {
     spenderAddress: Pool1ContractAddress
   });
 
-  // Pool Balance
-  const poolBalanceData = ERC20BalanceOf({
-    ownerAddress: Pool1ContractAddress!
-  });
 
   // Approve
   const approveConfig = ApprovePoolPreparedContract({
@@ -88,19 +83,6 @@ function FractionalMint() {
   useEffect(() => {
     setConnectedAddress(address);
   }, [isConnected]);
-
-  const handleStakeChange = (event: { target: { value: string } }) => {
-    const { value } = event.target;
-    if (isPositiveFloat(value)) {
-      setPoolAmount(ethers.utils.parseEther(value));
-    } else {
-      setPoolAmount(ethers.BigNumber.from(0));
-    }
-  };
-
-  function isPositiveFloat(value: string) {
-    return /^\d+(\.\d+)?$/.test(value) && Number(value) >= 1;
-  }
 
   function handleSlider(event: Event | React.SyntheticEvent, value: number | number[]) {
     event.preventDefault();
@@ -166,12 +148,7 @@ function FractionalMint() {
               <Box marginTop={3}>
                 <MainButton href="/">Back to console</MainButton>{' '}
               </Box>
-              <Box
-                borderRadius={10}
-                marginTop={3}
-                maxWidth={{ md: 350 }}
-                data-aos={'zoom-in'}
-              >
+              <Box borderRadius={10} marginTop={3} maxWidth={{ md: 350 }} data-aos={'zoom-in'}>
                 <Image alt="Background Image" src={WarholImage} quality={50} />
               </Box>
               <Box display={'flex'} flexDirection={'column'} marginTop={3} maxWidth={350}>
@@ -187,7 +164,6 @@ function FractionalMint() {
                 <Typography fontSize={12} align="left" color="white" data-aos={'flip-left'} marginTop={-2}>
                   <br /> -To mint your artwork, connect your wallet to our minting dapp here, sign the transaction and
                   confirm it in your wallet.
-
                 </Typography>
               </Box>
               <Box
@@ -200,7 +176,7 @@ function FractionalMint() {
                 data-aos={'zoom-out'}
               >
                 <Typography fontSize={16} color={grey[100]}>
-                  Cost: $500 
+                  Cost: $500
                 </Typography>
                 {connectedAddress && (
                   <>
