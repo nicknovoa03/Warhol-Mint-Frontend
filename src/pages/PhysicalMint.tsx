@@ -1,7 +1,7 @@
 import React from 'react';
-import { Pool2 } from '../views';
+import { PhysicalMint } from '../views';
 const IndexPage = () => {
-  return <Pool2 />;
+  return <PhysicalMint />;
 };
 
 export default IndexPage;

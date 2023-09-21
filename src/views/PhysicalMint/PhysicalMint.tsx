@@ -6,10 +6,9 @@ import Container from '../../components/Container';
 import { BigNumber, ethers } from 'ethers';
 import { Web3Button } from '@web3modal/react';
 import { useAccount, useContractWrite, useWaitForTransaction } from 'wagmi';
-import { StakeAmountField, MainButton } from '../../components/form/formElements';
+import { MainButton, MintSlider } from '../../components/form/formElements';
 import IAiLogo from '../../components/logos/IAiLogo';
 import theme from '../../theme';
-import StakeTable from './components/table/StakeTable';
 import { ContractAddress, WalletAddress } from '../../components/form/stakeElements';
 import { ERC20BalanceOf, ERC721BalanceOf } from '../../components/contracts/wagmiContracts';
 import {
@@ -17,14 +16,14 @@ import {
   PoolPreparedContract,
   ApprovePoolPreparedContract
 } from '../../components/contracts/poolWagmiContract';
-import { Pool2ContractAddress } from '../../components/contracts/contractAddresses';
+import { Pool1ContractAddress } from '../../components/contracts/contractAddresses';
 import { parseEther } from 'viem';
+import Image from 'next/image';
+import WarholImage from '../../../public/NFT-image.png';
 
-
-function Pool2() {
-  let [poolBalance, setPoolBalance] = useState<String>('0');
+function Pool1() {
   let [balanceAmount, setBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
-  let [NFTBalanceAmount, setNFTBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
+  let [mintAmount, setMintAmount] = useState<number>(1);
   let [allowanceSet, setAllowance] = useState(false);
   let [allowanceAmount, setAllowanceAmount] = useState<number>(0);
   let [poolAmount, setPoolAmount] = useState<BigNumber>(BigNumber.from(0));
@@ -40,18 +39,18 @@ function Pool2() {
   // Allowance
   const allowanceData = ERC20Allowance({
     ownerAddress: connectedAddress,
-    spenderAddress: Pool2ContractAddress
+    spenderAddress: Pool1ContractAddress
   });
 
   // Pool Balance
   const poolBalanceData = ERC20BalanceOf({
-    ownerAddress: Pool2ContractAddress!
+    ownerAddress: Pool1ContractAddress!
   });
 
   // Approve
   const approveConfig = ApprovePoolPreparedContract({
     tokenAmount: parseEther((100000000).toString()),
-    spenderAddress: Pool2ContractAddress
+    spenderAddress: Pool1ContractAddress
   });
   const { data: approveData, write: writeERC20Approve } = useContractWrite(approveConfig);
 
@@ -62,18 +61,13 @@ function Pool2() {
   // Lock
   const poolConfig = PoolPreparedContract({
     poolAmount: poolAmount,
-    poolAddress: Pool2ContractAddress
+    poolAddress: Pool1ContractAddress
   });
 
   const { data: poolData, write: stakeWrite } = useContractWrite(poolConfig);
 
   const { isLoading: stakeIsLoading, isSuccess: stakeIsSuccessful } = useWaitForTransaction({
     hash: poolData?.hash
-  });
-
-  // User erc721Balance
-  const NFTBalanceData = ERC721BalanceOf({
-    ownerAddress: connectedAddress!
   });
 
   useEffect(() => {
@@ -92,33 +86,18 @@ function Pool2() {
   }, [allowanceData, allowanceAmount]);
 
   useEffect(() => {
-    if (poolBalanceData) {
-      setPoolBalance(ethers.utils.formatEther(poolBalanceData));
-    }
-  }, [poolBalanceData]);
-
-  useEffect(() => {
-    if (NFTBalanceData) {
-      setNFTBalanceAmount(NFTBalanceData);
-    }
-  }, [NFTBalanceData]);
-
-  useEffect(() => {
     setConnectedAddress(address);
   }, [isConnected]);
 
-  const handleStakeChange = (event: { target: { value: any } }) => {
-    const { value } = event.target;
-    if (isPositiveFloat(value)) {
-      const poolAmount = ethers.utils.parseEther(value);
-      setPoolAmount(poolAmount);
-    } else {
-      setPoolAmount(ethers.BigNumber.from(0));
-    }
-  };
-
-  function isPositiveFloat(value: any) {
+  function isPositiveFloat(value: string) {
     return /^\d+(\.\d+)?$/.test(value) && Number(value) >= 1;
+  }
+
+  function handleSlider(event: Event | React.SyntheticEvent, value: number | number[]) {
+    event.preventDefault();
+    if (!Array.isArray(value)) {
+      setMintAmount(value);
+    }
   }
 
   return (
@@ -146,32 +125,27 @@ function Pool2() {
                 }}
               >
                 <Grid item container justifyContent={'center'} display="flex">
-                  <Grid item container justifyContent={'center'} sm={3} xs={3} marginBottom={-2}>
-                    <Box maxWidth={{ xs: 50, md: 70 }} data-aos={'zoom-in-right'}>
-                      <IAiLogo />
-                    </Box>
-                  </Grid>
-                  <Grid item container sm={9} xs={9} marginTop={{ md: 1 }} data-aos={'zoom-in-left'}>
+                  <Grid item container xs={12} marginTop={{ md: 1 }} data-aos={'zoom-in-left'}>
                     <Grid item sm={12}>
                       <Typography
                         fontSize={22}
-                        align="left"
+                        align="center"
                         color="white"
                         fontWeight={'bold'}
                         textTransform="uppercase"
                       >
-                        9022 Ambassador Pool 2
+                        Physical Warhol Mint
                       </Typography>
                     </Grid>
                     <Grid item sm={12}>
-                      <Typography fontSize={11} align="left" color="white">
-                        Lock $iAi and earn $iAi rewards
+                      <Typography fontSize={14} align="center" color="white">
+                        Mint a NFT and recieve a physical artwork
                       </Typography>
                     </Grid>
                   </Grid>
                 </Grid>
               </Box>
-              <Box marginTop={4} width={'75%'}>
+              <Box marginTop={2} width={'75%'}>
                 <Divider
                   flexItem
                   sx={{
@@ -180,44 +154,25 @@ function Pool2() {
                   }}
                 />
               </Box>
-              <Box marginTop={3}>
+              <Box marginTop={3} data-aos={'zoom-in'}>
                 <MainButton href="/">Back to console</MainButton>{' '}
               </Box>
-              <Box display={'flex'} flexDirection={'column'} marginTop={3}>
+              <Box borderRadius={10} marginTop={3} maxWidth={{ md: 350 }} data-aos={'zoom-in'}>
+                <Image alt="Background Image" src={WarholImage} quality={50} />
+              </Box>
+              <Box display={'flex'} flexDirection={'column'} marginTop={3} maxWidth={350}>
                 <Typography
-                  align="left"
+                  align="center"
                   color="white"
                   fontWeight={'bold'}
                   data-aos={'flip-right'}
                   textTransform="uppercase"
                 >
-                  Ambassador Lock Information:
+                  Mint Information:
                 </Typography>
-                <Typography fontSize={12} align="left" color="white" data-aos={'flip-left'}>
-                  To stake your $iAi, connect your wallet to our locking dapp here, sign the transaction and confirm it
-                  in your wallet.
-                  <br />
-                  <br />
-                </Typography>
-                <Typography
-                  align="left"
-                  color="white"
-                  fontWeight={'bold'}
-                  data-aos={'flip-right'}
-                  textTransform="uppercase"
-                >
-                  Disclaimer!
-                </Typography>
-                <Typography fontSize={12} marginTop={-2} align="left" color="white" data-aos={'flip-left'}>
-                  <br /> - THRESHOLD iAI Wallet balance: 30,000 iAI Tokens
-                  <br /> - Minimum 9022 NFTs Required: 2
-                  <br /> - YEARLY Distribution on iAI THRESHOLD: 4%
-                  <br /> - 180 day locking period
-                  <br />
-                  <br />
-                </Typography>
-                <Typography fontSize={12} align="center" color="white" data-aos={'flip-left'}>
-                  After successfully locking, simply return to this page to monitor your pooled $iAi.
+                <Typography fontSize={12} align="left" color="white" data-aos={'flip-left'} marginTop={-2}>
+                  <br /> -To mint your artwork, connect your wallet to our minting dapp here, sign the transaction and
+                  confirm it in your wallet.
                 </Typography>
               </Box>
               <Box
@@ -229,25 +184,16 @@ function Pool2() {
                 }}
                 data-aos={'zoom-out'}
               >
+                <Typography fontSize={16} color={grey[100]}>
+                  Cost: $500
+                </Typography>
                 {connectedAddress && (
                   <>
-                    <Typography fontSize={16} sx={{ mb: 0 }} color={grey[100]}>
+                    <Typography fontSize={16} color={grey[100]}>
                       Balance: {Number(ethers.utils.formatEther(balanceAmount)).toFixed(3)} $iAi
-                    </Typography>
-                    <Typography fontSize={16} sx={{ mb: 2 }} color={grey[100]}>
-                      9022 Held: {Number(NFTBalanceAmount)}
                     </Typography>
                   </>
                 )}
-                <Box width={{ sm: 450 }}>
-                  <StakeAmountField
-                    fullWidth
-                    className="inputRounded"
-                    variant={'outlined'}
-                    label="Lock Amount"
-                    onChange={handleStakeChange}
-                  />
-                </Box>
               </Box>
               <Box
                 sx={{
@@ -268,7 +214,7 @@ function Pool2() {
                         disabled={!writeERC20Approve || isLoadingERC20Approve}
                         onClick={() => writeERC20Approve?.()}
                       >
-                        {isLoadingERC20Approve ? 'Approving...' : `Approve $iAi`}
+                        {isLoadingERC20Approve ? 'Approving...' : `Approve  $iAi`}
                       </MainButton>
                     ) : (
                       <MainButton
@@ -295,7 +241,7 @@ function Pool2() {
                     {stakeIsSuccessful && (
                       <>
                         <Typography variant="h6" align="center" sx={{ mt: 1 }} color="white">
-                          Successfully Lock $iAi!
+                          Successfully Locked $iAi!
                         </Typography>
                         <Link href={`${blockExplorer}/tx/${poolData?.hash}`} target="_blank" underline="hover">
                           <Typography fontSize={20} align="center" color="white">
@@ -304,7 +250,7 @@ function Pool2() {
                         </Link>
                       </>
                     )}
-                    <ContractAddress address={Pool2ContractAddress} />
+                    <ContractAddress address={Pool1ContractAddress} />
                     <Web3Button />
                     <WalletAddress address={connectedAddress} />
                   </>
@@ -314,16 +260,12 @@ function Pool2() {
                   </>
                 )}
               </Box>
-              <Typography align="center" fontSize={22} sx={{ mt: 3 }} color={grey[100]} textTransform="uppercase">
-                Pool Balance: {Number(poolBalance).toLocaleString('en-US')} $iAi
-              </Typography>
             </Box>
           </Box>
         </Container>
-        <StakeTable address={connectedAddress} />
       </Main>
     </>
   );
 }
 
-export default Pool2;
+export default Pool1;

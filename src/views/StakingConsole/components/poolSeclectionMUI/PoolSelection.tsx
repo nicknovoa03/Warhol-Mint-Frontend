@@ -30,7 +30,7 @@ const pools = [
     title: 'Physical Warhol Mint',
     background: WarholImage,
     size: 4,
-    href: '/Pool2'
+    href: '/PhysicalMint'
   },
   {
     title: 'AI Companion Bot',
