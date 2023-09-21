@@ -10,6 +10,7 @@ import { useAccount } from 'wagmi';
 import Container from '../../components/Container';
 import PoolSelection from './components/poolSeclectionMUI/PoolSelection';
 import { ERC20BalanceOf, ERC721BalanceOf } from '../../components/contracts/wagmiContracts';
+import SimpleAccordion from './components/information/accordian';
 
 function StakingConsole() {
   let [connectedAddress, setConnectedAddress] = useState<`0x${string}` | undefined>();
@@ -56,66 +57,15 @@ function StakingConsole() {
               }}
               data-aos={'flip-down'}
             >
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center'
-                }}
-                maxWidth={{ md: 500 }}
-              >
-                <Grid item container justifyContent={'center'} display="flex">
-                  <Grid item container justifyContent={'center'} sm={3} xs={12}>
-                    <Box maxWidth={{ xs: 70, md: 70 }} data-aos={'zoom-in'} marginTop={{ md: 1 }}>
-                      <IAiLogo />
-                    </Box>
-                  </Grid>
-                  <Grid item container sm={9} xs={12} marginTop={{ md: 1 }} data-aos={'zoom-in'}>
-                    <Grid item sm={12}>
-                      <Typography
-                        fontSize={22}
-                        color="white"
-                        fontWeight={'bold'}
-                        textTransform="uppercase"
-                        align="center"
-                      >
-                        9022 Ambassador Console
-                      </Typography>
-                    </Grid>
-                    <Grid item sm={12}>
-                      <Typography fontSize={14} align="center" color="white">
-                        Earn $iAI rewards for your contributions to the ecosystem
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Box>
-              <Box marginTop={4} width={'75%'}>
-                <Divider
-                  flexItem
-                  sx={{
-                    backgroundColor: theme.palette.common.white,
-                    height: '1px'
-                  }}
-                />
-              </Box>
-              <Box display={'flex'} flexDirection={'column'} marginTop={3}>
-                <Typography
-                  align="center"
-                  color="white"
-                  fontWeight={'bold'}
-                  data-aos={'flip-right'}
-                  textTransform="uppercase"
-                >
-                  Information:
+              <Box display={'flex'} flexDirection={'column'} maxWidth={700}>
+                <Typography variant="h4" align="center" color="white" fontWeight={'bold'} data-aos={'zoom-out-down'}>
+                  iAI Warhol Mint
                 </Typography>
-                <Typography fontSize={12} align="center" color="white">
-                  - inheritance Art will offer 9022 Ambassador Pools for holders of the 9022 NFT collection
-                  <br /> - Your 9022 NFTs will determine which Ambassador Pools you have access to
-                  <br /> - Ambassador Pools will give 9022 holders the ability to participate in spreading awareness
-                  while being rewarded for their efforts
-                  <br />
+                <Typography variant="subtitle1" align="center" sx={{ my: 2 }} color="white" data-aos={'zoom-out-up'}>
+                  inheritance Art’s 9022 where art meets culture, fashion and story telling. Join us as we travel the
+                  universe with Ætheling on his way to Destination inheritance.
                 </Typography>
+                <SimpleAccordion />
               </Box>
               <Box
                 marginTop={3}
@@ -135,18 +85,6 @@ function StakingConsole() {
                         $iAI Balance: {Number(ethers.utils.formatEther(iAIbalanceAmount)).toFixed(3)}
                       </Typography>
                     </Box>
-                    <Box>
-                      <Typography align="center" fontSize={22} sx={{ mt: 1 }} color={grey[100]}>
-                        9022 Held: {Number(NFTBalanceAmount)}
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Link href="https://opensea.io/account?search[collections][0]=9022-collection" target="_blank">
-                        <Typography align="center" fontSize={18} sx={{ mt: 0 }} color={grey[100]}>
-                          View On Opensea
-                        </Typography>
-                      </Link>
-                    </Box>
                   </>
                 )}
               </Box>
@@ -160,7 +98,7 @@ function StakingConsole() {
                 data-aos={'zoom-in'}
                 textTransform="uppercase"
               >
-                Select Your Pool
+                Select Your Mint
               </Typography>
             </Box>
             <Box>
