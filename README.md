@@ -1,4 +1,4 @@
-# Staking Web3 Application
+# Minting Web3 Application
 
 ## Powered by
 
