@@ -1,5 +1,5 @@
-import { Button, Link, TableCell, TableContainer, TextField, styled } from '@mui/material';
-import { blue, grey } from '@mui/material/colors';
+import { Button, Link, Slider, TableCell, TableContainer, TextField, styled } from '@mui/material';
+import { blue, grey, orange } from '@mui/material/colors';
 
 const IALogoColor = 'gold';
 
@@ -33,7 +33,7 @@ export const PoolSelectionButton = styled(Button)({
 
 export const MainButton = styled(Button)({
   fontSize: 18,
-  padding: '5px',
+  padding: '12px',
   border: '3px solid',
   lineHeight: 2,
   borderRadius: 30,
@@ -117,3 +117,45 @@ export const StakeAmountField = styled(TextField)({
 });
 
 export const StakeTableContainer = styled(TableContainer)({});
+
+export const MintSlider = styled(Slider)({
+  color: orange[50],
+  height: 5,
+  '& .MuiSlider-track': {
+      border: 'none'
+  },
+  '& .MuiSlider-thumb': {
+      height: 15,
+      width: 15,
+      backgroundColor: orange[50],
+      border: '2px solid currentColor',
+      '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
+          width: 20,
+          height: 20,
+      },
+      '&:before': {
+          display: 'none'
+      }
+  },
+  '& .MuiSlider-rail': {
+      opacity: 0.3
+  },
+  '& .MuiSlider-valueLabel': {
+      color: orange[50],
+      lineHeight: 1.2,
+      fontSize: 15,
+      width: 30,
+      height: 30,
+      borderRadius: '50% 50% 50% 0%',
+      backgroundColor: orange[500],
+      transformOrigin: 'bottom left',
+      transform: 'translate(50%, -100%) rotate(45deg) scale(0)',
+      '&:before': { display: 'none' },
+      '&.MuiSlider-valueLabelOpen': {
+          transform: 'translate(50%, -100%) rotate(-45deg) scale(1)'
+      },
+      '& > *': {
+          transform: 'rotate(45deg)'
+      }
+  }
+})
