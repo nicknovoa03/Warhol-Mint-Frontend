@@ -1,7 +1,7 @@
 import React from 'react';
-import { Pool3 } from '../views';
+import { AiBotMint } from '../views';
 const IndexPage = () => {
-  return <Pool3 />;
+  return <AiBotMint />;
 };
 
 export default IndexPage;

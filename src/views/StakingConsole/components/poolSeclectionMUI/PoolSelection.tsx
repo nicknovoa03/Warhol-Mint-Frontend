@@ -36,7 +36,7 @@ const pools = [
     title: 'AI Companion Bot',
     background: WarholImage,
     size: 4,
-    href: '/Pool3'
+    href: '/AiBotMint'
   }
 ];
 

@@ -21,7 +21,7 @@ import { Pool3ContractAddress } from '../../components/contracts/contractAddress
 import { parseEther } from 'viem';
 
 
-function Pool1() {
+function AiBotMint() {
   let [poolBalance, setPoolBalance] = useState<String>('0');
   let [balanceAmount, setBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
   let [NFTBalanceAmount, setNFTBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
@@ -327,4 +327,4 @@ function Pool1() {
   );
 }
 
-export default Pool1;
+export default AiBotMint;
