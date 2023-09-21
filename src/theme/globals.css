@@ -1,0 +1,10 @@
+body {
+  background: url('../../public/background.jpg') blue;
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.inputRounded .MuiOutlinedInput-root {
+  border-radius: 50px;
+}
