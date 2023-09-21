@@ -21,7 +21,7 @@ import { parseEther } from 'viem';
 import Image from 'next/image';
 import WarholImage from '../../../public/NFT-image.png'
 
-function Pool1() {
+function FractionalMint() {
   let [balanceAmount, setBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
   let [mintAmount, setMintAmount] = useState<number>(1);
   let [allowanceSet, setAllowance] = useState(false);
@@ -311,4 +311,4 @@ function Pool1() {
   );
 }
 
-export default Pool1;
+export default FractionalMint;

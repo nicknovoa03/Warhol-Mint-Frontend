@@ -24,7 +24,7 @@ const pools = [
     title: 'Fractional Warhol Mint',
     background: WarholImage,
     size: 4,
-    href: '/Pool1'
+    href: '/FractionalMint'
   },
   {
     title: 'Physical Warhol Mint',

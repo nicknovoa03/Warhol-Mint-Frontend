@@ -1,7 +1,7 @@
 import React from 'react';
-import { Pool1 } from '../views';
+import { FractionalMint } from '../views';
 const IndexPage = () => {
-  return <Pool1 />;
+  return <FractionalMint />;
 };
 
 export default IndexPage;
