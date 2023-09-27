@@ -35,7 +35,7 @@ const pools = [
   }
 ];
 
-const PoolSelection = () => {
+const MintSelection = () => {
   const theme = useTheme();
   let [connectedAddress, setConnectedAddress] = useState<`0x${string}` | undefined>();
   let [iAIbalanceAmount, setiAIBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
@@ -104,4 +104,4 @@ const PoolSelection = () => {
   );
 };
 
-export default PoolSelection;
+export default MintSelection;

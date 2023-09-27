@@ -6,7 +6,7 @@ import { BigNumber, ethers } from 'ethers';
 import { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
 import Container from '../../components/Container';
-import PoolSelection from './components/poolSeclectionMUI/PoolSelection';
+import MintSelection from './components/mintSelectionMUI/MintSelection';
 import { ERC20BalanceOf } from '../../components/contracts/wagmiContracts';
 import SimpleAccordion from './components/information/accordian';
 
@@ -92,7 +92,7 @@ function StakingConsole() {
               </Typography>
             </Box>
             <Box>
-              <PoolSelection />
+              <MintSelection />
             </Box>
           </Box>
         </Container>

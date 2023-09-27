@@ -1,7 +1,7 @@
 import React from 'react';
-import { StakingConsole } from '../views';
+import { MintingConsole } from '../views';
 const IndexPage = () => {
-  return <StakingConsole />;
+  return <MintingConsole />;
 };
 
 export default IndexPage;
