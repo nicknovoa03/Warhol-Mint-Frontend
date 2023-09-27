@@ -12,7 +12,8 @@ import { ERC20BalanceOf,  } from '../../../../components/contracts/wagmiContract
 import { useAccount } from 'wagmi';
 import getNFTMetadata from '../../../../components/nfts/NFTMetadata';
 import Image from 'next/image';
-import WarholImage from '../../../../../public/NFT-image.png';
+import WarholImage from '../../../../../public/NFT-image.png'
+import AiImage from '../../../../../public/AI.jpg'
 
 const pools = [
   {
@@ -28,8 +29,8 @@ const pools = [
     href: '/PhysicalMint'
   },
   {
-    title: 'AI Companion Bot',
-    background: WarholImage,
+    title: 'Reservation for AI Human Model',
+    background: AiImage,
     size: 4,
     href: '/AiBotMint'
   }

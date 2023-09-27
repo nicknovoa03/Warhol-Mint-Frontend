@@ -18,7 +18,7 @@ import {
 import { Pool1ContractAddress } from '../../components/contracts/contractAddresses';
 import { parseEther } from 'viem';
 import Image from 'next/image';
-import WarholImage from '../../../public/NFT-image.png';
+import AiImage from '../../../public/AI.jpg';
 
 function AiBotMint() {
   let [balanceAmount, setBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
@@ -83,8 +83,6 @@ function AiBotMint() {
     setConnectedAddress(address);
   }, [isConnected]);
 
-
-
   return (
     <>
       <Main>
@@ -119,7 +117,7 @@ function AiBotMint() {
                         fontWeight={'bold'}
                         textTransform="uppercase"
                       >
-                        AI Bot Mint
+                        AI Human Model
                       </Typography>
                     </Grid>
                     <Grid item sm={12}>
@@ -143,7 +141,7 @@ function AiBotMint() {
                 <MainButton href="/">Back to console</MainButton>{' '}
               </Box>
               <Box borderRadius={10} marginTop={3} maxWidth={{ md: 350 }} data-aos={'zoom-in'}>
-                <Image alt="Background Image" src={WarholImage} quality={50} />
+                <Image alt="Background Image" src={AiImage} quality={50} />
               </Box>
               <Box display={'flex'} flexDirection={'column'} marginTop={3} maxWidth={350}>
                 <Typography
@@ -153,10 +151,24 @@ function AiBotMint() {
                   data-aos={'flip-right'}
                   textTransform="uppercase"
                 >
-                  Mint Information:
+                  AI Information:
                 </Typography>
-                <Typography fontSize={12} align="left" color="white" data-aos={'flip-left'} marginTop={-2}>
-                  <br /> -To mint your artwork, connect your wallet to our minting dapp here, sign the transaction and
+                <Typography fontSize={12} align="center" color="white" data-aos={'flip-left'} marginTop={-2}>
+                  <br /> AI Model will respond to spoken language with general information about the subject provided in prerecorded responses
+                </Typography>
+              </Box>
+              <Box display={'flex'} flexDirection={'column'} marginTop={3} maxWidth={350}>
+                <Typography
+                  align="center"
+                  color="white"
+                  fontWeight={'bold'}
+                  data-aos={'flip-right'}
+                  textTransform="uppercase"
+                >
+                  Mint Instructions:
+                </Typography>
+                <Typography fontSize={12} align="center" color="white" data-aos={'flip-left'} marginTop={-2}>
+                  <br /> To mint your NFT, connect your wallet to our minting dapp here, sign the transaction and
                   confirm it in your wallet.
                 </Typography>
               </Box>

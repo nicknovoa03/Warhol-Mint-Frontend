@@ -13,13 +13,7 @@ export default function SimpleAccordion() {
           <Typography>Warhol Fractional Mint</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Benefits for 9022 Holders: <br /> - Access to gated merchandise
-            <br /> - Access to Ambassador Program IAI <br /> Seed Holder Benefits:
-            <br />
-            Seed holders of inheritance Art&apos;s Seed NFT (BEP20) can leverage a 30% rebate on their 9022, so long as
-            they use the same wallet/same address on the Ethereum Blockchain, that holds their Seed NFT.
-          </Typography>
+          <Typography>Own a fractional share of a original Warhol artwork</Typography>
         </AccordionDetails>
       </Accordion>
       <Accordion>
@@ -27,34 +21,17 @@ export default function SimpleAccordion() {
           <Typography>Warhol Physical Mint</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Seed holders of inheritance Art&apos;s Seed NFT (BEP20) can leverage a 30% rebate on their 9022, so long as
-            they use the same wallet/same address on the Ethereum Blockchain, that holds their Seed NFT. <br />
-            <br />
-            One for one rebate will be available. Example: If you hold one iAI Seed NFT (Binance Smart Chain) and you
-            purchase one 9022 using the same wallet (Ethereum), you will receive a 30% rebate once verified by the
-            inheritance Art team on your purchase of a 9022.
-            <br /> <br />
-            If you hold three Seed NFTs and purchase four 9022s, you will receive a rebate on three of the four 9022s
-            purchased.
-          </Typography>
+          <Typography>Own a physical copy of a original Warhol artwork</Typography>
         </AccordionDetails>
       </Accordion>
       <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header">
-          <Typography>AI Companion Mint</Typography>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel3a-content" id="panel3a-header">
+          <Typography>AI Human Model</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            Seed holders of inheritance Art&apos;s Seed NFT (BEP20) can leverage a 30% rebate on their 9022, so long as
-            they use the same wallet/same address on the Ethereum Blockchain, that holds their Seed NFT. <br />
-            <br />
-            One for one rebate will be available. Example: If you hold one iAI Seed NFT (Binance Smart Chain) and you
-            purchase one 9022 using the same wallet (Ethereum), you will receive a 30% rebate once verified by the
-            inheritance Art team on your purchase of a 9022.
-            <br /> <br />
-            If you hold three Seed NFTs and purchase four 9022s, you will receive a rebate on three of the four 9022s
-            purchased.
+            AI Model will respond to spoken language with general information about the subject provided in prerecorded
+            responses purchased.
           </Typography>
         </AccordionDetails>
       </Accordion>

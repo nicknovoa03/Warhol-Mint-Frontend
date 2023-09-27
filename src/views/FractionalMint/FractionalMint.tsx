@@ -41,7 +41,6 @@ function FractionalMint() {
     spenderAddress: Pool1ContractAddress
   });
 
-
   // Approve
   const approveConfig = ApprovePoolPreparedContract({
     tokenAmount: parseEther((100000000).toString()),
@@ -159,10 +158,24 @@ function FractionalMint() {
                   data-aos={'flip-right'}
                   textTransform="uppercase"
                 >
-                  Mint Information:
+                  NFT Information:
                 </Typography>
-                <Typography fontSize={12} align="left" color="white" data-aos={'flip-left'} marginTop={-2}>
-                  <br /> -To mint your artwork, connect your wallet to our minting dapp here, sign the transaction and
+                <Typography fontSize={12} align="center" color="white" data-aos={'flip-left'} marginTop={-2}>
+                  <br /> Own a fractional share of a original Warhol artwork
+                </Typography>
+              </Box>
+              <Box display={'flex'} flexDirection={'column'} marginTop={3} maxWidth={350}>
+                <Typography
+                  align="center"
+                  color="white"
+                  fontWeight={'bold'}
+                  data-aos={'flip-right'}
+                  textTransform="uppercase"
+                >
+                  Mint Instructions:
+                </Typography>
+                <Typography fontSize={12} align="center" color="white" data-aos={'flip-left'} marginTop={-2}>
+                  <br /> To mint your NFT, connect your wallet to our minting dapp here, sign the transaction and
                   confirm it in your wallet.
                 </Typography>
               </Box>
