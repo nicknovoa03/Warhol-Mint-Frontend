@@ -8,25 +8,26 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { BigNumber } from 'ethers';
-import { ERC20BalanceOf,  } from '../../../../components/contracts/wagmiContracts';
+import { ERC20BalanceOf } from '../../../../components/contracts/wagmiContracts';
 import { useAccount } from 'wagmi';
 import getNFTMetadata from '../../../../components/nfts/NFTMetadata';
 import Image from 'next/image';
-import WarholImage from '../../../../../public/NFT-image.png'
-import AiImage from '../../../../../public/AI.jpg'
+import WarholImage from '../../../../../public/NFT-image.png';
+import AiImage from '../../../../../public/AI.jpg';
+import PhysicalWarholImage from '../../../../../public/background.jpg';
 
 const pools = [
+  {
+    title: 'Physical Warhol Mint',
+    background: PhysicalWarholImage,
+    size: 4,
+    href: '/PhysicalMint'
+  },
   {
     title: 'Fractional Warhol Mint',
     background: WarholImage,
     size: 4,
     href: '/FractionalMint'
-  },
-  {
-    title: 'Physical Warhol Mint',
-    background: WarholImage,
-    size: 4,
-    href: '/PhysicalMint'
   },
   {
     title: 'Reservation for AI Human Model',
