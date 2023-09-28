@@ -9,10 +9,13 @@ import Container from '../../components/Container';
 import MintSelection from './components/mintSelectionMUI/MintSelection';
 import { ERC20BalanceOf } from '../../components/contracts/wagmiContracts';
 import SimpleAccordion from './components/information/accordian';
+import TokenPrice from './components/TokenPrice';
 
 function StakingConsole() {
   let [connectedAddress, setConnectedAddress] = useState<`0x${string}` | undefined>();
   let [iAIbalanceAmount, setiAIBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
+  let [price, setPrice] = useState<number>(0);
+
   let { address, isConnected } = useAccount();
 
   // User erc20 Balance
@@ -22,7 +25,6 @@ function StakingConsole() {
       setiAIBalanceAmount(iAIBalanceData);
     }
   }, [iAIBalanceData]);
-
 
   // Save Connected Address to state
   useEffect(() => {
@@ -49,14 +51,15 @@ function StakingConsole() {
             >
               <Box display={'flex'} flexDirection={'column'} maxWidth={700}>
                 <Typography variant="h4" align="center" color="white" fontWeight={'bold'} data-aos={'zoom-out-down'}>
-                  iAI Warhol Mint
+                  Inheritance Store
                 </Typography>
                 <Typography variant="subtitle1" align="center" sx={{ my: 2 }} color="white" data-aos={'zoom-out-up'}>
-                  inheritance Art’s 9022 where art meets culture, fashion and story telling. Join us as we travel the
-                  universe with Ætheling on his way to Destination inheritance.
+                  inheritance Art&apos;s 9022 where art meets culture, fashion and story telling. Join us as we travel
+                  the universe with Ætheling on his way to Destination inheritance.
                 </Typography>
                 <SimpleAccordion />
               </Box>
+
               <Box
                 marginTop={3}
                 sx={{
