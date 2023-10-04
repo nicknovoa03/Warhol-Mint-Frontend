@@ -9,9 +9,9 @@ import Container from '../../components/Container';
 import MintSelection from './components/mintSelectionMUI/MintSelection';
 import { ERC20BalanceOf } from '../../components/contracts/wagmiContracts';
 import SimpleAccordion from './components/information/accordian';
-import TokenPrice from './components/TokenPrice';
+//import TokenPrice from './components/TokenPrice';
 
-function StakingConsole() {
+function MintingConsole() {
   let [connectedAddress, setConnectedAddress] = useState<`0x${string}` | undefined>();
   let [iAIbalanceAmount, setiAIBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
   let [price, setPrice] = useState<number>(0);
@@ -105,4 +105,4 @@ function StakingConsole() {
   );
 }
 
-export default StakingConsole;
+export default MintingConsole;
