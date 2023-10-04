@@ -18,19 +18,19 @@ import PhysicalWarholImage from '../../../../../public/background.jpg';
 
 const pools = [
   {
-    title: 'Physical Warhol Mint',
+    title: 'Warhol Spawn Bundle',
     background: PhysicalWarholImage,
     size: 4,
     href: '/PhysicalMint'
   },
   {
-    title: 'Fractional Warhol Mint',
+    title: 'Warhol Fine Art Spawn',
     background: WarholImage,
     size: 4,
     href: '/FractionalMint'
   },
   {
-    title: 'Reservation for AI Human Model',
+    title: 'Reservation for Ai Human Model',
     background: AiImage,
     size: 4,
     href: '/AiBotMint'

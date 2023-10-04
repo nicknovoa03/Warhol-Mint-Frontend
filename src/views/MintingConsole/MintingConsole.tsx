@@ -54,8 +54,9 @@ function StakingConsole() {
                   Inheritance Store
                 </Typography>
                 <Typography variant="subtitle1" align="center" sx={{ my: 2 }} color="white" data-aos={'zoom-out-up'}>
-                  inheritance Art&apos;s 9022 where art meets culture, fashion and story telling. Join us as we travel
-                  the universe with Ætheling on his way to Destination inheritance.
+                  The art world is about to undergo a transformation. Fine Art Spawns, a new product line by inheritance
+                  Art, allows art enthusiasts to own a portion of an art masterpiece, starting with Andy Warhol&apos;s “Mao”
+                  print.
                 </Typography>
                 <SimpleAccordion />
               </Box>

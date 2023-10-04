@@ -117,12 +117,12 @@ function Pool1() {
                         fontWeight={'bold'}
                         textTransform="uppercase"
                       >
-                        Physical Warhol Mint
+                        Warhol Spawn Bundle (30 Pieces)
                       </Typography>
                     </Grid>
                     <Grid item sm={12}>
                       <Typography fontSize={14} align="center" color="white">
-                        Mint a NFT and recieve a physical artwork
+                        Reserve a Fine Art Spawn of the Mao Print and receive a physical artwork by Æthelstan
                       </Typography>
                     </Grid>
                   </Grid>
@@ -154,7 +154,8 @@ function Pool1() {
                   NFT Information:
                 </Typography>
                 <Typography fontSize={12} align="center" color="white" data-aos={'flip-left'} marginTop={-2}>
-                  <br /> Own a physical copy of a original Warhol artwork
+                  <br /> Each bundle includes a Fine Art Spawn of the Mao Print by Andy Warhol and a unique physical
+                  artwork hand-painted by Æthelstan.
                 </Typography>
               </Box>
               <Box display={'flex'} flexDirection={'column'} marginTop={3} maxWidth={350}>
@@ -165,11 +166,11 @@ function Pool1() {
                   data-aos={'flip-right'}
                   textTransform="uppercase"
                 >
-                  Mint Instructions:
+                  RESERVATION INSTRUCTIONS:
                 </Typography>
                 <Typography fontSize={12} align="center" color="white" data-aos={'flip-left'} marginTop={-2}>
-                  <br /> To mint your artwork, connect your wallet to our minting dapp here, sign the transaction and
-                  confirm it in your wallet.
+                  <br /> To make a reservation for your Warhol Spawn Bundle, connect your wallet to our minting dApp
+                  here, sign the transaction and confirm it in your wallet.
                 </Typography>
               </Box>
               <Box
@@ -182,7 +183,7 @@ function Pool1() {
                 data-aos={'zoom-out'}
               >
                 <Typography fontSize={16} color={grey[100]}>
-                  Cost: $500
+                  Reservation Cost: $260 of $1,300 total (in iAI tokens)
                 </Typography>
                 {connectedAddress && (
                   <>

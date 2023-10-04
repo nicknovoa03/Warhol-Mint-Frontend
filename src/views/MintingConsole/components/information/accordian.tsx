@@ -10,15 +10,17 @@ export default function SimpleAccordion() {
     <div>
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
-          <Typography>Warhol Fractional Mint</Typography>
+          <Typography>Warhol Spawn Bundle</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>Own a fractional share of a original Warhol artwork</Typography>
+          <Typography>
+            Own a fractional share of an original Warhol artwork and a unique physical artwork hand-painted by Æthelstan
+          </Typography>
         </AccordionDetails>
       </Accordion>
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header">
-          <Typography>Warhol Physical Mint</Typography>
+          <Typography>Warhol Fine Art Spawn</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>Own a physical copy of a original Warhol artwork</Typography>
@@ -26,7 +28,7 @@ export default function SimpleAccordion() {
       </Accordion>
       <Accordion>
         <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel3a-content" id="panel3a-header">
-          <Typography>AI Human Model</Typography>
+          <Typography>Reservation for Ai Human Model</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>

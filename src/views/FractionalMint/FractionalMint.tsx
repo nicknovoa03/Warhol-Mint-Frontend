@@ -124,12 +124,12 @@ function FractionalMint() {
                         fontWeight={'bold'}
                         textTransform="uppercase"
                       >
-                        Fractional Warhol Mint
+                        Warhol Fine Art Spawn (20 Pieces){' '}
                       </Typography>
                     </Grid>
                     <Grid item sm={12}>
                       <Typography fontSize={14} align="center" color="white">
-                        Mint a fractional share of a Warhol Artwork
+                        Own a fractional share of an original Warhol artwork{' '}
                       </Typography>
                     </Grid>
                   </Grid>
@@ -172,11 +172,11 @@ function FractionalMint() {
                   data-aos={'flip-right'}
                   textTransform="uppercase"
                 >
-                  Mint Instructions:
+                  Reservation Instructions:
                 </Typography>
                 <Typography fontSize={12} align="center" color="white" data-aos={'flip-left'} marginTop={-2}>
-                  <br /> To mint your NFT, connect your wallet to our minting dapp here, sign the transaction and
-                  confirm it in your wallet.
+                  <br /> To make a reservation for your Warhol Fine Art Spawn, connect your wallet to our minting dApp
+                  here, sign the transaction and confirm it in your wallet.
                 </Typography>
               </Box>
               <Box
@@ -189,7 +189,7 @@ function FractionalMint() {
                 data-aos={'zoom-out'}
               >
                 <Typography fontSize={16} color={grey[100]}>
-                  Cost: $500
+                  Reservation Cost: $200 of $1,000 total (in iAI tokens)
                 </Typography>
                 {connectedAddress && (
                   <>
@@ -198,7 +198,7 @@ function FractionalMint() {
                     </Typography>
                   </>
                 )}
-                <Box width={{ sm: 450 }}>
+                <Box width={{ sm: 450 }} marginTop={5}>
                   <MintSlider
                     onChangeCommitted={(event: Event | React.SyntheticEvent, value: number | number[]) =>
                       handleSlider(event, value)
