@@ -9,7 +9,7 @@ import Container from '../../components/Container';
 import MintSelection from './components/mintSelectionMUI/MintSelection';
 import { ERC20BalanceOf } from '../../components/contracts/wagmiContracts';
 import SimpleAccordion from './components/information/accordian';
-//import TokenPrice from './components/TokenPrice';
+import TokenPrice from './components/TokenPrice';
 
 function MintingConsole() {
   let [connectedAddress, setConnectedAddress] = useState<`0x${string}` | undefined>();
@@ -78,6 +78,9 @@ function MintingConsole() {
                       <Typography align="center" fontSize={22} sx={{ mt: 3 }} color={grey[100]}>
                         $iAI Balance: {Number(ethers.utils.formatEther(iAIbalanceAmount)).toFixed(3)}
                       </Typography>
+                    </Box>
+                    <Box>
+                      <TokenPrice/>
                     </Box>
                   </>
                 )}
