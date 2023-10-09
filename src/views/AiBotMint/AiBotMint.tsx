@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Box, Typography, Link, Grid, Divider } from '@mui/material';
+import { Box, Typography, Link, Grid, Divider, Button } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import Main from '../../layouts/Main';
 import Container from '../../components/Container';
@@ -19,6 +19,7 @@ import { Pool1ContractAddress } from '../../components/contracts/contractAddress
 import { parseEther } from 'viem';
 import Image from 'next/image';
 import AiImage from '../../../public/AI.jpg';
+import TokenPrice from '../../pages/api/TokenPrice';
 
 function AiBotMint() {
   let [balanceAmount, setBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
@@ -116,7 +117,7 @@ function AiBotMint() {
                         fontWeight={'bold'}
                         textTransform="uppercase"
                       >
-                        AI Human Model
+                        AI Human Model (20 Pieces)
                       </Typography>
                     </Grid>
                     <Grid item sm={12}>
@@ -137,7 +138,9 @@ function AiBotMint() {
                 />
               </Box>
               <Box marginTop={3} data-aos={'zoom-in'}>
-                <MainButton href="/">Back to console</MainButton>{' '}
+                <Button size={'large'} variant={'contained'} href={'/'}>
+                  Back To Console{' '}
+                </Button>
               </Box>
               <Box borderRadius={10} marginTop={3} maxWidth={{ md: 350 }} data-aos={'zoom-in'}>
                 <Image alt="Background Image" src={AiImage} quality={50} />
@@ -153,7 +156,8 @@ function AiBotMint() {
                   AI Information:
                 </Typography>
                 <Typography fontSize={12} align="center" color="white" data-aos={'flip-left'} marginTop={-2}>
-                  <br /> AI Model will respond to spoken language with general information about the subject provided in prerecorded responses
+                  <br /> AI Model will respond to spoken language with general information about the subject provided in
+                  prerecorded responses
                 </Typography>
               </Box>
               <Box display={'flex'} flexDirection={'column'} marginTop={3} maxWidth={350}>
@@ -181,8 +185,11 @@ function AiBotMint() {
                 data-aos={'zoom-out'}
               >
                 <Typography fontSize={16} color={grey[100]}>
-                  Cost: $500
+                  Reservation Cost: $1,000 of $5,000 total (in iAI tokens){' '}
                 </Typography>
+                <Box>
+                  <TokenPrice />
+                </Box>
                 {connectedAddress && (
                   <>
                     <Typography fontSize={16} color={grey[100]}>

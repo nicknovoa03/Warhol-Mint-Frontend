@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Box, Typography, Link, Grid, Divider } from '@mui/material';
+import { Box, Typography, Link, Grid, Divider, Button } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import Main from '../../layouts/Main';
 import Container from '../../components/Container';
@@ -146,7 +146,9 @@ function FractionalMint() {
                 />
               </Box>
               <Box marginTop={3}>
-                <MainButton href="/">Back to console</MainButton>{' '}
+                <Button size={'large'} variant={'contained'} href={'/'}>
+                  Back To Console{' '}
+                </Button>
               </Box>
               <Box borderRadius={10} marginTop={3} maxWidth={{ md: 350 }} data-aos={'zoom-in'}>
                 <Image alt="Background Image" src={WarholImage} quality={50} />
