@@ -21,19 +21,19 @@ const pools = [
     title: 'Warhol Spawn Bundle',
     background: PhysicalWarholImage,
     size: 4,
-    href: '/PhysicalMint'
+    href: '/SpawnBundle'
   },
   {
     title: 'Warhol Fine Art Spawn',
     background: WarholImage,
     size: 4,
-    href: '/FractionalMint'
+    href: '/FineArtSpawn'
   },
   {
     title: 'Reservation for Ai Human Model',
     background: AiImage,
     size: 4,
-    href: '/AiBotMint'
+    href: '/AI'
   }
 ];
 
