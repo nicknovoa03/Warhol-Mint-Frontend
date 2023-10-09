@@ -32,7 +32,7 @@ const TokenPrice = () => {
 
   return (
     <div>
-      <Typography color={'white'}>$iAI Token Price: ${parseFloat(price).toFixed(2)}</Typography>
+      <Typography color={'white'}>iAI Token Price: ${parseFloat(price).toFixed(2)}</Typography>
     </div>
   );
 };
