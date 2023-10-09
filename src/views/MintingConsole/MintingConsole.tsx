@@ -9,7 +9,7 @@ import Container from '../../components/Container';
 import MintSelection from './components/mintSelectionMUI/MintSelection';
 import { ERC20BalanceOf } from '../../components/contracts/wagmiContracts';
 import SimpleAccordion from './components/information/accordian';
-import TokenPrice from './components/TokenPrice';
+import TokenPrice from '../../pages/api/TokenPrice';
 
 function MintingConsole() {
   let [connectedAddress, setConnectedAddress] = useState<`0x${string}` | undefined>();

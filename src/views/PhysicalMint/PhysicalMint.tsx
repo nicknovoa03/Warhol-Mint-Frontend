@@ -6,7 +6,7 @@ import Container from '../../components/Container';
 import { BigNumber, ethers } from 'ethers';
 import { Web3Button } from '@web3modal/react';
 import { useAccount, useContractWrite, useWaitForTransaction } from 'wagmi';
-import { MainButton } from '../../components/form/formElements';
+import { MainButton, MintSlider } from '../../components/form/formElements';
 import theme from '../../theme';
 import { ContractAddress, WalletAddress } from '../../components/form/stakeElements';
 import { ERC20BalanceOf } from '../../components/contracts/wagmiContracts';
@@ -19,6 +19,7 @@ import { Pool1ContractAddress } from '../../components/contracts/contractAddress
 import { parseEther } from 'viem';
 import Image from 'next/image';
 import WarholImage from '../../../public/NFT-image.png';
+import TokenPrice from '../../pages/api/TokenPrice';
 
 function Pool1() {
   let [balanceAmount, setBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
@@ -52,16 +53,16 @@ function Pool1() {
     hash: approveData?.hash
   });
 
-  // Lock
-  const poolConfig = PoolPreparedContract({
+  // Mint
+  const physicalMintConfig = PoolPreparedContract({
     poolAmount: poolAmount,
     poolAddress: Pool1ContractAddress
   });
 
-  const { data: poolData, write: stakeWrite } = useContractWrite(poolConfig);
+  const { data: mintData, write: mintWrite } = useContractWrite(physicalMintConfig);
 
-  const { isLoading: stakeIsLoading, isSuccess: stakeIsSuccessful } = useWaitForTransaction({
-    hash: poolData?.hash
+  const { isLoading: mintIsLoading, isSuccess: mintIsSuccessful } = useWaitForTransaction({
+    hash: mintData?.hash
   });
 
   useEffect(() => {
@@ -82,6 +83,13 @@ function Pool1() {
   useEffect(() => {
     setConnectedAddress(address);
   }, [isConnected]);
+
+  function handleSlider(event: Event | React.SyntheticEvent, value: number | number[]) {
+    event.preventDefault();
+    if (!Array.isArray(value)) {
+      setMintAmount(value);
+    }
+  }
 
   return (
     <>
@@ -185,6 +193,9 @@ function Pool1() {
                 <Typography fontSize={16} color={grey[100]}>
                   Reservation Cost: $260 of $1,300 total (in iAI tokens)
                 </Typography>
+                <Box>
+                  <TokenPrice />
+                </Box>
                 {connectedAddress && (
                   <>
                     <Typography fontSize={16} color={grey[100]}>
@@ -193,6 +204,7 @@ function Pool1() {
                   </>
                 )}
               </Box>
+
               <Box
                 sx={{
                   display: 'flex',
@@ -205,6 +217,34 @@ function Pool1() {
               >
                 {connectedAddress ? (
                   <>
+                    <Box width={{ sm: 450 }} marginTop={5}>
+                      <MintSlider
+                        onChangeCommitted={(event: Event | React.SyntheticEvent, value: number | number[]) =>
+                          handleSlider(event, value)
+                        }
+                        valueLabelDisplay="auto"
+                        aria-label="Mint Amount"
+                        marks={true}
+                        min={1}
+                        max={3}
+                        sx={{
+                          mt: 0,
+                          mb: 0
+                        }}
+                      />
+                      <Typography
+                        variant="subtitle1"
+                        fontSize={16}
+                        color="white"
+                        align="center"
+                        sx={{
+                          mt: 0,
+                          mb: 2
+                        }}
+                      >
+                        QUANTITY SELECTOR
+                      </Typography>
+                    </Box>
                     {!allowanceSet ? (
                       <MainButton
                         fullWidth
@@ -218,10 +258,10 @@ function Pool1() {
                       <MainButton
                         fullWidth
                         variant="contained"
-                        disabled={!stakeWrite || stakeIsLoading}
-                        onClick={() => stakeWrite?.()}
+                        disabled={!mintWrite || mintIsLoading}
+                        onClick={() => mintWrite?.()}
                       >
-                        {stakeIsLoading ? 'Locking... ' : `Lock ${ethers.utils.formatEther(poolAmount)} $iAI`}
+                        {mintIsLoading ? 'Minting... ' : `Mint ${mintAmount} Spawn Bundle`}
                       </MainButton>
                     )}
                     {approveIsSuccessful && (
@@ -236,12 +276,12 @@ function Pool1() {
                         </Link>
                       </>
                     )}
-                    {stakeIsSuccessful && (
+                    {mintIsSuccessful && (
                       <>
                         <Typography variant="h6" align="center" sx={{ mt: 1 }} color="white">
-                          Successfully Locked $iAi!
+                          Successfully Minted {mintAmount} iAI Spawn Bundle!
                         </Typography>
-                        <Link href={`${blockExplorer}/tx/${poolData?.hash}`} target="_blank" underline="hover">
+                        <Link href={`${blockExplorer}/tx/${mintData?.hash}`} target="_blank" underline="hover">
                           <Typography fontSize={20} align="center" color="white">
                             View Transaction
                           </Typography>

@@ -19,6 +19,7 @@ import { Pool1ContractAddress } from '../../components/contracts/contractAddress
 import { parseEther } from 'viem';
 import Image from 'next/image';
 import WarholImage from '../../../public/NFT-image.png';
+import TokenPrice from '../../pages/api/TokenPrice';
 
 function FractionalMint() {
   let [balanceAmount, setBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
@@ -52,16 +53,16 @@ function FractionalMint() {
     hash: approveData?.hash
   });
 
-  // Lock
-  const poolConfig = PoolPreparedContract({
+  // Mint
+  const fractionalMintConfig = PoolPreparedContract({
     poolAmount: poolAmount,
     poolAddress: Pool1ContractAddress
   });
 
-  const { data: poolData, write: stakeWrite } = useContractWrite(poolConfig);
+  const { data: mintdata, write: mintWrite } = useContractWrite(fractionalMintConfig);
 
-  const { isLoading: stakeIsLoading, isSuccess: stakeIsSuccessful } = useWaitForTransaction({
-    hash: poolData?.hash
+  const { isLoading: mintIsLoading, isSuccess: mintIsSuccessful } = useWaitForTransaction({
+    hash: mintdata?.hash
   });
 
   useEffect(() => {
@@ -191,41 +192,16 @@ function FractionalMint() {
                 <Typography fontSize={16} color={grey[100]}>
                   Reservation Cost: $200 of $1,000 total (in iAI tokens)
                 </Typography>
+                <Box>
+                  <TokenPrice />
+                </Box>
                 {connectedAddress && (
                   <>
-                    <Typography fontSize={16} sx={{ mb: 5 }} color={grey[100]}>
+                    <Typography fontSize={16} color={grey[100]}>
                       Balance: {Number(ethers.utils.formatEther(balanceAmount)).toFixed(3)} $iAi
                     </Typography>
                   </>
                 )}
-                <Box width={{ sm: 450 }} marginTop={5}>
-                  <MintSlider
-                    onChangeCommitted={(event: Event | React.SyntheticEvent, value: number | number[]) =>
-                      handleSlider(event, value)
-                    }
-                    valueLabelDisplay="auto"
-                    aria-label="Mint Amount"
-                    marks={true}
-                    min={1}
-                    max={5}
-                    sx={{
-                      mt: 0,
-                      mb: 0
-                    }}
-                  />
-                  <Typography
-                    variant="subtitle1"
-                    fontSize={16}
-                    color="white"
-                    align="center"
-                    sx={{
-                      mt: 0,
-                      mb: 2
-                    }}
-                  >
-                    QUANTITY SELECTOR
-                  </Typography>
-                </Box>
               </Box>
               <Box
                 sx={{
@@ -239,6 +215,34 @@ function FractionalMint() {
               >
                 {connectedAddress ? (
                   <>
+                    <Box width={{ sm: 450 }} marginTop={5}>
+                      <MintSlider
+                        onChangeCommitted={(event: Event | React.SyntheticEvent, value: number | number[]) =>
+                          handleSlider(event, value)
+                        }
+                        valueLabelDisplay="auto"
+                        aria-label="Mint Amount"
+                        marks={true}
+                        min={1}
+                        max={2}
+                        sx={{
+                          mt: 0,
+                          mb: 0
+                        }}
+                      />
+                      <Typography
+                        variant="subtitle1"
+                        fontSize={16}
+                        color="white"
+                        align="center"
+                        sx={{
+                          mt: 0,
+                          mb: 2
+                        }}
+                      >
+                        QUANTITY SELECTOR
+                      </Typography>
+                    </Box>
                     {!allowanceSet ? (
                       <MainButton
                         fullWidth
@@ -252,10 +256,10 @@ function FractionalMint() {
                       <MainButton
                         fullWidth
                         variant="contained"
-                        disabled={!stakeWrite || stakeIsLoading}
-                        onClick={() => stakeWrite?.()}
+                        disabled={!mintWrite || mintIsLoading}
+                        onClick={() => mintWrite?.()}
                       >
-                        {stakeIsLoading ? 'Locking... ' : `Lock ${ethers.utils.formatEther(poolAmount)} $iAI`}
+                        {mintIsLoading ? 'Minting... ' : `Mint ${mintAmount} Fine Art Spawn `}
                       </MainButton>
                     )}
                     {approveIsSuccessful && (
@@ -270,12 +274,12 @@ function FractionalMint() {
                         </Link>
                       </>
                     )}
-                    {stakeIsSuccessful && (
+                    {mintIsSuccessful && (
                       <>
                         <Typography variant="h6" align="center" sx={{ mt: 1 }} color="white">
-                          Successfully Locked $iAi!
+                          Successfully Minted {mintAmount} iAi Fine Art Spawn!
                         </Typography>
-                        <Link href={`${blockExplorer}/tx/${poolData?.hash}`} target="_blank" underline="hover">
+                        <Link href={`${blockExplorer}/tx/${mintdata?.hash}`} target="_blank" underline="hover">
                           <Typography fontSize={20} align="center" color="white">
                             View Transaction
                           </Typography>
