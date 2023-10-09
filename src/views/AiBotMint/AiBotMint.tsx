@@ -22,7 +22,6 @@ import AiImage from '../../../public/AI.jpg';
 
 function AiBotMint() {
   let [balanceAmount, setBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
-  let [mintAmount, setMintAmount] = useState<number>(1);
   let [allowanceSet, setAllowance] = useState(false);
   let [allowanceAmount, setAllowanceAmount] = useState<number>(0);
   let [poolAmount, setPoolAmount] = useState<BigNumber>(BigNumber.from(0));
@@ -52,16 +51,16 @@ function AiBotMint() {
     hash: approveData?.hash
   });
 
-  // Lock
-  const poolConfig = PoolPreparedContract({
+  // Mint
+  const mintAiConfig = PoolPreparedContract({
     poolAmount: poolAmount,
     poolAddress: Pool1ContractAddress
   });
 
-  const { data: poolData, write: stakeWrite } = useContractWrite(poolConfig);
+  const { data: mintData, write: mintWrite } = useContractWrite(mintAiConfig);
 
-  const { isLoading: stakeIsLoading, isSuccess: stakeIsSuccessful } = useWaitForTransaction({
-    hash: poolData?.hash
+  const { isLoading: mintIsLoading, isSuccess: mintIsSucccessful } = useWaitForTransaction({
+    hash: mintData?.hash
   });
 
   useEffect(() => {
@@ -217,10 +216,10 @@ function AiBotMint() {
                       <MainButton
                         fullWidth
                         variant="contained"
-                        disabled={!stakeWrite || stakeIsLoading}
-                        onClick={() => stakeWrite?.()}
+                        disabled={!mintWrite || mintIsLoading}
+                        onClick={() => mintWrite?.()}
                       >
-                        {stakeIsLoading ? 'Locking... ' : `Lock ${ethers.utils.formatEther(poolAmount)} $iAI`}
+                        {mintIsLoading ? 'Locking... ' : `Reserve`}
                       </MainButton>
                     )}
                     {approveIsSuccessful && (
@@ -235,12 +234,12 @@ function AiBotMint() {
                         </Link>
                       </>
                     )}
-                    {stakeIsSuccessful && (
+                    {mintIsSucccessful && (
                       <>
                         <Typography variant="h6" align="center" sx={{ mt: 1 }} color="white">
                           Successfully Locked $iAi!
                         </Typography>
-                        <Link href={`${blockExplorer}/tx/${poolData?.hash}`} target="_blank" underline="hover">
+                        <Link href={`${blockExplorer}/tx/${mintData?.hash}`} target="_blank" underline="hover">
                           <Typography fontSize={20} align="center" color="white">
                             View Transaction
                           </Typography>
