@@ -19,9 +19,11 @@ import { Pool1ContractAddress } from '../../components/contracts/contractAddress
 import { parseEther } from 'viem';
 import Image from 'next/image';
 import WarholImage from '../../../public/NFT-image.png';
-import TokenPrice from '../../pages/api/TokenPrice';
+import { reserve } from '../../components/contracts/appCaller';
+import axios from 'axios';
 
 function FractionalMint() {
+  let [iAIprice, setiAIprice] = useState<number>(0.0);
   let [balanceAmount, setBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
   let [mintAmount, setMintAmount] = useState<number>(1);
   let [allowanceSet, setAllowance] = useState(false);
@@ -30,6 +32,33 @@ function FractionalMint() {
   let [connectedAddress, setConnectedAddress] = useState<`0x${string}` | undefined>();
   let { address, isConnected } = useAccount();
   const blockExplorer = 'https://etherscan.com';
+  const usdAmount = 200;
+  const coin = 'inheritance-art'; // Access the coin symbol from the query parameters
+  let purchaseCost;
+
+  //iAI price
+  useEffect(() => {
+    const fetchTokenPrice = async () => {
+      try {
+        const response = await axios.get(
+          'https://api.coingecko.com/api/v3/simple/price?ids=inheritance-art&vs_currencies=usd'
+        );
+
+        const data = response.data;
+        if (data && data[coin] && data[coin].usd) {
+          setiAIprice(data[coin].usd);
+        } else {
+          console.log(data);
+          setiAIprice(0.0);
+        }
+      } catch (error) {
+        console.error('Error fetching token price:', error);
+        setiAIprice(0.0);
+      }
+    };
+
+    fetchTokenPrice();
+  }, []);
 
   // User Balance
   const balanceData = ERC20BalanceOf({
@@ -89,6 +118,14 @@ function FractionalMint() {
     if (!Array.isArray(value)) {
       setMintAmount(value);
     }
+  }
+
+  async function executeMint() {
+    // usd price divided by iAI price, then mutiply times amount to mint
+    purchaseCost = parseFloat((usdAmount / iAIprice).toFixed(2)) * mintAmount;
+    console.log('iai cost:', purchaseCost);
+    //mintWrite?.();
+    //reserve(connectedAddress, iAiCost, mintAmount, 1);
   }
 
   return (
@@ -195,7 +232,7 @@ function FractionalMint() {
                   Reservation Cost: $200 of $1,000 total (in iAI tokens)
                 </Typography>
                 <Box>
-                  <TokenPrice />
+                  <Typography color={'white'}>iAI Token Price: ${iAIprice!.toFixed(2)}</Typography>
                 </Box>
                 {connectedAddress && (
                   <>
@@ -217,7 +254,7 @@ function FractionalMint() {
               >
                 {connectedAddress ? (
                   <>
-                    <Box width={{ sm: 450 }} marginTop={5}>
+                    <Box width={{ sm: 450 }} marginY={3}>
                       <MintSlider
                         onChangeCommitted={(event: Event | React.SyntheticEvent, value: number | number[]) =>
                           handleSlider(event, value)
@@ -238,14 +275,16 @@ function FractionalMint() {
                         color="white"
                         align="center"
                         sx={{
-                          mt: 0,
-                          mb: 2
+                          mt: 0
                         }}
                       >
-                        QUANTITY SELECTOR
+                        QUANTITY SELECTOR: {mintAmount}
+                      </Typography>
+                      <Typography fontSize={16} color={grey[100]} align="center">
+                        Total Cost: {parseFloat((usdAmount / iAIprice).toFixed(2)) * mintAmount} $iAi
                       </Typography>
                     </Box>
-                    {!allowanceSet ? (
+                    {allowanceSet ? (
                       <MainButton
                         fullWidth
                         variant="contained"
@@ -255,12 +294,7 @@ function FractionalMint() {
                         {isLoadingERC20Approve ? 'Approving...' : `Approve  $iAi`}
                       </MainButton>
                     ) : (
-                      <MainButton
-                        fullWidth
-                        variant="contained"
-                        disabled={!mintWrite || mintIsLoading}
-                        onClick={() => mintWrite?.()}
-                      >
+                      <MainButton fullWidth variant="contained" onClick={() => executeMint()}>
                         {mintIsLoading ? 'Minting... ' : `Mint ${mintAmount} Fine Art Spawn `}
                       </MainButton>
                     )}
