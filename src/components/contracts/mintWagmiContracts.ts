@@ -16,8 +16,8 @@ export const MintWarhol = (numberOfTokens: number) => {
     abi: WarholJson.abi,
     functionName: 'mint',
     args: [numberOfTokens],
-    gasPrice: parseGwei("20"),
-    gas: parseGwei("21000"),
+    gasPrice: parseGwei('20'),
+    gas: parseGwei('21000')
   });
   return config;
 };
