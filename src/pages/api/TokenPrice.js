@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Typography } from '@mui/material';
 
 const TokenPrice = () => {
-  const [price, setPrice] = useState(null);
+  let [price, setPrice] = useState(null);
   const coin = 'inheritance-art'; // Access the coin symbol from the query parameters
 
   useEffect(() => {
@@ -16,25 +16,23 @@ const TokenPrice = () => {
 
         const data = response.data;
         if (data && data[coin] && data[coin].usd) {
-          setPrice(data[coin].usd);
+          const tempPrice = data[coin.usd];
+          console.log('temp price:', tempPrice);
+          setPrice(price);
         } else {
           console.log(data);
-          setPrice('Price not available');
+          setPrice(0);
         }
       } catch (error) {
         console.error('Error fetching token price:', error);
-        setPrice('Error fetching price');
+        setPrice(0);
       }
     };
 
     fetchTokenPrice();
   }, []);
 
-  return (
-    <div>
-      <Typography color={'white'}>iAI Token Price: ${parseFloat(price).toFixed(2)}</Typography>
-    </div>
-  );
+  return price;
 };
 
 export default TokenPrice;
