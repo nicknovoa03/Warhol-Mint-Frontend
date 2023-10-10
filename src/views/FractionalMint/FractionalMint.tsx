@@ -10,7 +10,7 @@ import { MainButton, MintSlider } from '../../components/form/formElements';
 import theme from '../../theme';
 import { ContractAddress, WalletAddress } from '../../components/form/stakeElements';
 import { ERC20BalanceOf } from '../../components/contracts/wagmiContracts';
-import { ERC20Allowance, ApprovePoolPreparedContract, MintWarhol } from '../../components/contracts/mintWagmiContracts';
+import { ERC20Allowance, ApprovePoolPreparedContract, MintWarhol } from '../../components/contracts/wagmiContracts';
 import { MintContractTestAddress } from '../../components/contracts/contractAddresses';
 import { parseEther } from 'viem';
 import Image from 'next/image';

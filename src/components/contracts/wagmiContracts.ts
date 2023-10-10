@@ -1,8 +1,9 @@
 import { BigNumber } from 'ethers';
-import { useContractRead } from 'wagmi';
+import { useContractRead, erc20ABI, usePrepareContractWrite } from 'wagmi';
 import TokenEth from './ABI/TokenEth.json';
 import Collection9022 from './ABI/Collection9022.json';
-import { testiAIaddress } from './mintWagmiContracts';
+import { MintContractTestAddress, testiAIaddress } from './contractAddresses';
+import WarholJson from './ABI/warhol.json';
 
 export type AllowanceProps = {
   ownerAddress: `0x${string}` | undefined;
@@ -18,11 +19,6 @@ export type BalanceProps = {
   ownerAddress: `0x${string}`;
 };
 
-export let iAI_ContractAddress: `0x${string}` = '0x6dDe4fFD6dB302Bc9a46850f61399e082f6c2122';
-export let NFT_ContractAddress: `0x${string}` = '0x853806fCa5Ee8a6Ac99Dc84a8e3596A4F6541796';
-
-//iAI_ContractAddress = testERC20;
-//NFT_ContractAddress = testNFT;
 
 // Get balance of for token owner
 export const ERC20BalanceOf = (props: BalanceProps) => {
@@ -38,10 +34,42 @@ export const ERC20BalanceOf = (props: BalanceProps) => {
 // Get balance of for token owner
 export const ERC721BalanceOf = (props: BalanceProps) => {
   const { data } = useContractRead({
-    address: NFT_ContractAddress,
+    address: MintContractTestAddress,
     abi: Collection9022.abi,
     functionName: 'balanceOf',
     args: [props.ownerAddress!]
   });
   return data as BigNumber;
+};
+
+export const MintWarhol = (numberOfTokens: number) => {
+  const { config } = usePrepareContractWrite({
+    address: MintContractTestAddress,
+    abi: WarholJson.abi,
+    functionName: 'mint',
+    args: [numberOfTokens],
+  });
+  return config;
+};
+
+// Approve token for tokenTransfer
+export const ApprovePoolPreparedContract = (props: erc20ApproveProps) => {
+  const { config } = usePrepareContractWrite({
+    address: testiAIaddress,
+    abi: erc20ABI,
+    functionName: 'approve',
+    args: [props.spenderAddress, props.tokenAmount]
+  });
+  return config;
+};
+
+// Get Allowance for token owner and spender
+export const ERC20Allowance = (props: AllowanceProps) => {
+  const { data } = useContractRead({
+    address: testiAIaddress,
+    abi: erc20ABI,
+    functionName: 'allowance',
+    args: [props.ownerAddress!, props.spenderAddress]
+  });
+  return data;
 };
