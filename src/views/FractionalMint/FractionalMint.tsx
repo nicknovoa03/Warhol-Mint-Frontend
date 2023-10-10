@@ -10,12 +10,8 @@ import { MainButton, MintSlider } from '../../components/form/formElements';
 import theme from '../../theme';
 import { ContractAddress, WalletAddress } from '../../components/form/stakeElements';
 import { ERC20BalanceOf } from '../../components/contracts/wagmiContracts';
-import {
-  ERC20Allowance,
-  PoolPreparedContract,
-  ApprovePoolPreparedContract
-} from '../../components/contracts/mintWagmiContracts';
-import { Pool1ContractAddress } from '../../components/contracts/contractAddresses';
+import { ERC20Allowance, ApprovePoolPreparedContract, MintWarhol } from '../../components/contracts/mintWagmiContracts';
+import { MintContractTestAddress } from '../../components/contracts/contractAddresses';
 import { parseEther } from 'viem';
 import Image from 'next/image';
 import WarholImage from '../../../public/NFT-image.png';
@@ -68,13 +64,13 @@ function FractionalMint() {
   // Allowance
   const allowanceData = ERC20Allowance({
     ownerAddress: connectedAddress,
-    spenderAddress: Pool1ContractAddress
+    spenderAddress: MintContractTestAddress
   });
 
   // Approve
   const approveConfig = ApprovePoolPreparedContract({
     tokenAmount: parseEther((100000000).toString()),
-    spenderAddress: Pool1ContractAddress
+    spenderAddress: MintContractTestAddress
   });
   const { data: approveData, write: writeERC20Approve } = useContractWrite(approveConfig);
 
@@ -83,10 +79,7 @@ function FractionalMint() {
   });
 
   // Mint
-  const fractionalMintConfig = PoolPreparedContract({
-    poolAmount: poolAmount,
-    poolAddress: Pool1ContractAddress
-  });
+  const fractionalMintConfig = MintWarhol(mintAmount);
 
   const { data: mintdata, write: mintWrite } = useContractWrite(fractionalMintConfig);
 
@@ -322,7 +315,7 @@ function FractionalMint() {
                         </Link>
                       </>
                     )}
-                    <ContractAddress address={Pool1ContractAddress} />
+                    <ContractAddress address={MintContractTestAddress} />
                     <Web3Button />
                     <WalletAddress address={connectedAddress} />
                   </>

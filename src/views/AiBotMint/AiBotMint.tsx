@@ -10,16 +10,11 @@ import { MainButton } from '../../components/form/formElements';
 import theme from '../../theme';
 import { ContractAddress, WalletAddress } from '../../components/form/stakeElements';
 import { ERC20BalanceOf } from '../../components/contracts/wagmiContracts';
-import {
-  ERC20Allowance,
-  PoolPreparedContract,
-  ApprovePoolPreparedContract
-} from '../../components/contracts/mintWagmiContracts';
-import { Pool1ContractAddress } from '../../components/contracts/contractAddresses';
+import { ERC20Allowance, ApprovePoolPreparedContract, MintWarhol } from '../../components/contracts/mintWagmiContracts';
+import { MintContractTestAddress } from '../../components/contracts/contractAddresses';
 import { parseEther } from 'viem';
 import Image from 'next/image';
 import AiImage from '../../../public/AI.jpg';
-import TokenPrice from '../../pages/api/TokenPrice';
 import axios from 'axios';
 
 function AiBotMint() {
@@ -67,14 +62,15 @@ function AiBotMint() {
   // Allowance
   const allowanceData = ERC20Allowance({
     ownerAddress: connectedAddress,
-    spenderAddress: Pool1ContractAddress
+    spenderAddress: MintContractTestAddress
   });
 
   // Approve
   const approveConfig = ApprovePoolPreparedContract({
     tokenAmount: parseEther((100000000).toString()),
-    spenderAddress: Pool1ContractAddress
+    spenderAddress: MintContractTestAddress
   });
+
   const { data: approveData, write: writeERC20Approve } = useContractWrite(approveConfig);
 
   const { isLoading: isLoadingERC20Approve, isSuccess: approveIsSuccessful } = useWaitForTransaction({
@@ -82,12 +78,9 @@ function AiBotMint() {
   });
 
   // Mint
-  const mintAiConfig = PoolPreparedContract({
-    poolAmount: poolAmount,
-    poolAddress: Pool1ContractAddress
-  });
+  const AiMintConfig = MintWarhol(1);
 
-  const { data: mintData, write: mintWrite } = useContractWrite(mintAiConfig);
+  const { data: mintData, write: mintWrite } = useContractWrite(AiMintConfig);
 
   const { isLoading: mintIsLoading, isSuccess: mintIsSucccessful } = useWaitForTransaction({
     hash: mintData?.hash
@@ -293,7 +286,7 @@ function AiBotMint() {
                         </Link>
                       </>
                     )}
-                    <ContractAddress address={Pool1ContractAddress} />
+                    <ContractAddress address={MintContractTestAddress} />
                     <Web3Button />
                     <WalletAddress address={connectedAddress} />
                   </>
