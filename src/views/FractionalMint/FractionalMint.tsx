@@ -284,7 +284,7 @@ function FractionalMint() {
                         Total Cost: {parseFloat((usdAmount / iAIprice).toFixed(2)) * mintAmount} $iAi
                       </Typography>
                     </Box>
-                    {allowanceSet ? (
+                    {!allowanceSet ? (
                       <MainButton
                         fullWidth
                         variant="contained"
