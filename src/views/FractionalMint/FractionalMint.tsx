@@ -14,7 +14,7 @@ import {
   ERC20Allowance,
   PoolPreparedContract,
   ApprovePoolPreparedContract
-} from '../../components/contracts/poolWagmiContract';
+} from '../../components/contracts/mintWagmiContracts';
 import { Pool1ContractAddress } from '../../components/contracts/contractAddresses';
 import { parseEther } from 'viem';
 import Image from 'next/image';

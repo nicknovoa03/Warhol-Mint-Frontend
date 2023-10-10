@@ -7,7 +7,7 @@ import { Web3Modal } from '@web3modal/react';
 import { AppProps } from 'next/app';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum';
-import { mainnet } from 'wagmi/chains';
+import { mainnet, sepolia } from 'wagmi/chains';
 import * as dotenv from 'dotenv'; // Import dotenv module
 dotenv.config(); // Load the .env file
 
@@ -15,7 +15,7 @@ dotenv.config(); // Load the .env file
 const projectId = '72e247ee043a24a6e5ecfa195061a9fd';
 
 // 2. Configure wagmi client
-const chains = [mainnet];
+const chains = [sepolia];
 const { publicClient } = configureChains(chains, [w3mProvider({ projectId })]);
 const wagmiConfig = createConfig({
   autoConnect: true,
