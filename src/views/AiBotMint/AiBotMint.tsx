@@ -20,8 +20,10 @@ import { parseEther } from 'viem';
 import Image from 'next/image';
 import AiImage from '../../../public/AI.jpg';
 import TokenPrice from '../../pages/api/TokenPrice';
+import axios from 'axios';
 
 function AiBotMint() {
+  let [iAIprice, setiAIprice] = useState<number>(0.0);
   let [balanceAmount, setBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
   let [allowanceSet, setAllowance] = useState(false);
   let [allowanceAmount, setAllowanceAmount] = useState<number>(0);
@@ -29,6 +31,33 @@ function AiBotMint() {
   let [connectedAddress, setConnectedAddress] = useState<`0x${string}` | undefined>();
   let { address, isConnected } = useAccount();
   const blockExplorer = 'https://etherscan.com';
+  const usdAmount = 260;
+  const coin = 'inheritance-art'; // Access the coin symbol from the query parameters
+  let purchaseCost;
+
+  //iAI price
+  useEffect(() => {
+    const fetchTokenPrice = async () => {
+      try {
+        const response = await axios.get(
+          'https://api.coingecko.com/api/v3/simple/price?ids=inheritance-art&vs_currencies=usd'
+        );
+
+        const data = response.data;
+        if (data && data[coin] && data[coin].usd) {
+          setiAIprice(data[coin].usd);
+        } else {
+          console.log(data);
+          setiAIprice(0.0);
+        }
+      } catch (error) {
+        console.error('Error fetching token price:', error);
+        setiAIprice(0.0);
+      }
+    };
+
+    fetchTokenPrice();
+  }, []);
 
   // User Balance
   const balanceData = ERC20BalanceOf({
@@ -82,6 +111,14 @@ function AiBotMint() {
   useEffect(() => {
     setConnectedAddress(address);
   }, [isConnected]);
+
+  async function executeMint() {
+    // usd price divided by iAI price, then mutiply times amount to mint
+    purchaseCost = parseFloat((usdAmount / iAIprice).toFixed(2));
+    console.log('iai cost:', purchaseCost);
+    //mintWrite?.();
+    //reserve(connectedAddress, iAiCost, mintAmount, 1);
+  }
 
   return (
     <>
@@ -188,7 +225,7 @@ function AiBotMint() {
                   Reservation Cost: $1,000 of $5,000 total (in iAI tokens){' '}
                 </Typography>
                 <Box>
-                  <TokenPrice />
+                  <Typography color={'white'}>iAI Token Price: ${iAIprice!.toFixed(2)}</Typography>
                 </Box>
                 {connectedAddress && (
                   <>
@@ -208,9 +245,12 @@ function AiBotMint() {
                 }}
                 data-aos="fade-up"
               >
+                <Typography fontSize={16} color={grey[100]} align="center" marginBottom={1}>
+                  Total Cost: {parseFloat((usdAmount / iAIprice).toFixed(2))} $iAi
+                </Typography>
                 {connectedAddress ? (
                   <>
-                    {!allowanceSet ? (
+                    {allowanceSet ? (
                       <MainButton
                         fullWidth
                         variant="contained"
