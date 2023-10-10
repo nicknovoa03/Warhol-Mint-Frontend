@@ -55,8 +55,8 @@ function MintingConsole() {
                 </Typography>
                 <Typography variant="subtitle1" align="center" sx={{ my: 2 }} color="white" data-aos={'zoom-out-up'}>
                   The art world is about to undergo a transformation. Fine Art Spawns, a new product line by inheritance
-                  Art, allows art enthusiasts to own a portion of an art masterpiece, starting with Andy Warhol&apos;s “Mao”
-                  print.
+                  Art, allows art enthusiasts to own a portion of an art masterpiece, starting with Andy Warhol&apos;s
+                  “Mao” print.
                 </Typography>
                 <SimpleAccordion />
               </Box>
@@ -80,7 +80,7 @@ function MintingConsole() {
                       </Typography>
                     </Box>
                     <Box>
-                      <TokenPrice/>
+                      <TokenPrice />
                     </Box>
                   </>
                 )}

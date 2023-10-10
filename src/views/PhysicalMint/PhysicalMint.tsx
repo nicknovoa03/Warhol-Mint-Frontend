@@ -24,7 +24,6 @@ import axios from 'axios';
 
 function Pool1() {
   let [iAIprice, setiAIprice] = useState<number>(0.0);
-
   let [balanceAmount, setBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
   let [mintAmount, setMintAmount] = useState<number>(1);
   let [allowanceSet, setAllowance] = useState(false);

@@ -122,40 +122,40 @@ export const MintSlider = styled(Slider)({
   color: orange[50],
   height: 5,
   '& .MuiSlider-track': {
-      border: 'none'
+    border: 'none'
   },
   '& .MuiSlider-thumb': {
-      height: 15,
-      width: 15,
-      backgroundColor: orange[50],
-      border: '2px solid currentColor',
-      '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
-          width: 20,
-          height: 20,
-      },
-      '&:before': {
-          display: 'none'
-      }
+    height: 15,
+    width: 15,
+    backgroundColor: orange[50],
+    border: '2px solid currentColor',
+    '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
+      width: 20,
+      height: 20
+    },
+    '&:before': {
+      display: 'none'
+    }
   },
   '& .MuiSlider-rail': {
-      opacity: 0.3
+    opacity: 0.3
   },
   '& .MuiSlider-valueLabel': {
-      color: orange[50],
-      lineHeight: 1.2,
-      fontSize: 15,
-      width: 30,
-      height: 30,
-      borderRadius: '50% 50% 50% 0%',
-      backgroundColor: orange[500],
-      transformOrigin: 'bottom left',
-      transform: 'translate(50%, -100%) rotate(45deg) scale(0)',
-      '&:before': { display: 'none' },
-      '&.MuiSlider-valueLabelOpen': {
-          transform: 'translate(50%, -100%) rotate(-45deg) scale(1)'
-      },
-      '& > *': {
-          transform: 'rotate(45deg)'
-      }
+    color: orange[50],
+    lineHeight: 1.2,
+    fontSize: 15,
+    width: 30,
+    height: 30,
+    borderRadius: '50% 50% 50% 0%',
+    backgroundColor: orange[500],
+    transformOrigin: 'bottom left',
+    transform: 'translate(50%, -100%) rotate(45deg) scale(0)',
+    '&:before': { display: 'none' },
+    '&.MuiSlider-valueLabelOpen': {
+      transform: 'translate(50%, -100%) rotate(-45deg) scale(1)'
+    },
+    '& > *': {
+      transform: 'rotate(45deg)'
+    }
   }
-})
+});
