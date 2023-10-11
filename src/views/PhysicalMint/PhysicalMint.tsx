@@ -15,47 +15,20 @@ import { MintContractTestAddress } from '../../components/contracts/contractAddr
 import { parseEther } from 'viem';
 import Image from 'next/image';
 import WarholImage from '../../../public/NFT-image.png';
-import TokenPrice from '../../pages/api/TokenPrice';
 import axios from 'axios';
-import { reserve } from '../../components/contracts/appCaller';
 
 function Pool1() {
-  let [iAIprice, setiAIprice] = useState<number>(0.0);
+  let [iAIprice, setiAIprice] = useState<number>(0.25);
+  let [totalPrice, setTotalPrice] = useState<BigInt>(BigInt(0));
   let [balanceAmount, setBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
-  let [mintAmount, setMintAmount] = useState<number>(1);
+  let [mintAmount, setMintAmount] = useState<number>(0);
   let [allowanceSet, setAllowance] = useState(false);
   let [allowanceAmount, setAllowanceAmount] = useState<number>(0);
-  let [poolAmount, setPoolAmount] = useState<BigNumber>(BigNumber.from(0));
   let [connectedAddress, setConnectedAddress] = useState<`0x${string}` | undefined>();
   let { address, isConnected } = useAccount();
   const blockExplorer = 'https://etherscan.com';
-  const usdAmount = 260;
   const coin = 'inheritance-art'; // Access the coin symbol from the query parameters
-  let purchaseCost;
-
-  //iAI price
-  useEffect(() => {
-    const fetchTokenPrice = async () => {
-      try {
-        const response = await axios.get(
-          'https://api.coingecko.com/api/v3/simple/price?ids=inheritance-art&vs_currencies=usd'
-        );
-
-        const data = response.data;
-        if (data && data[coin] && data[coin].usd) {
-          setiAIprice(data[coin].usd);
-        } else {
-          console.log(data);
-          setiAIprice(0.0);
-        }
-      } catch (error) {
-        console.error('Error fetching token price:', error);
-        setiAIprice(0.0);
-      }
-    };
-
-    fetchTokenPrice();
-  }, []);
+  const usdAmount = 260;
 
   // User Balance
   const balanceData = ERC20BalanceOf({
@@ -79,14 +52,36 @@ function Pool1() {
     hash: approveData?.hash
   });
 
-  // Mint
-  const physicalMintConfig = MintWarhol(mintAmount);
+  function handleSlider(event: Event | React.SyntheticEvent, value: number | number[]) {
+    event.preventDefault();
+    if (!Array.isArray(value)) {
+      setMintAmount(value);
+    }
+  }
 
-  const { data: mintData, write: mintWrite } = useContractWrite(physicalMintConfig);
+  //iAI price
+  useEffect(() => {
+    const fetchTokenPrice = async () => {
+      try {
+        const response = await axios.get(
+          'https://api.coingecko.com/api/v3/simple/price?ids=inheritance-art&vs_currencies=usd'
+        );
 
-  const { isLoading: mintIsLoading, isSuccess: mintIsSuccessful } = useWaitForTransaction({
-    hash: mintData?.hash
-  });
+        const data = response.data;
+        if (data && data[coin] && data[coin].usd) {
+          setiAIprice(data[coin].usd);
+        } else {
+          console.log(data);
+          setiAIprice(0.25);
+        }
+      } catch (error) {
+        console.error('Error fetching token price:', error);
+        setiAIprice(0.25);
+      }
+    };
+
+    fetchTokenPrice();
+  }, []);
 
   useEffect(() => {
     if (balanceData) {
@@ -107,20 +102,23 @@ function Pool1() {
     setConnectedAddress(address);
   }, [isConnected]);
 
-  function handleSlider(event: Event | React.SyntheticEvent, value: number | number[]) {
-    event.preventDefault();
-    if (!Array.isArray(value)) {
-      setMintAmount(value);
-    }
-  }
+  useEffect(() => {
+    const tempPrice = BigInt(Math.round((usdAmount / iAIprice) * mintAmount) * 10 ** 18);
+    console.log('totalPrice:', tempPrice);
+    setTotalPrice(tempPrice);
+  }, [mintAmount, iAIprice]);
 
-  async function executeMint() {
-    // usd price divided by iAI price, then mutiply times amount to mint
-    purchaseCost = parseFloat((usdAmount / iAIprice).toFixed(2)) * mintAmount;
-    console.log('iai cost:', purchaseCost);
-    mintWrite?.();
-    reserve(connectedAddress, ethers.utils.parseEther(String(1)), mintAmount, 1);
-  }
+  // Mint
+  let physicalMintConfig = MintWarhol({
+    iAIamount: totalPrice,
+    numberOfTokens: mintAmount,
+    uriNumber: 2
+  });
+
+  const { data: mintData, write: mintWrite } = useContractWrite(physicalMintConfig);
+  const { isLoading: mintIsLoading, isSuccess: mintIsSuccessful } = useWaitForTransaction({
+    hash: mintData?.hash
+  });
 
   return (
     <>
@@ -258,7 +256,7 @@ function Pool1() {
                         valueLabelDisplay="auto"
                         aria-label="Mint Amount"
                         marks={true}
-                        min={1}
+                        min={0}
                         max={3}
                       />
                       <Typography variant="subtitle1" fontSize={16} color="white" align="center">
@@ -282,7 +280,7 @@ function Pool1() {
                         fullWidth
                         variant="contained"
                         disabled={!mintWrite || mintIsLoading}
-                        onClick={() => executeMint()}
+                        onClick={() => mintWrite?.()}
                       >
                         {mintIsLoading ? 'Minting... ' : `Mint ${mintAmount} Spawn Bundle`}
                       </MainButton>

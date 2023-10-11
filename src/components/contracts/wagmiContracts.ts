@@ -19,6 +19,11 @@ export type BalanceProps = {
   ownerAddress: `0x${string}`;
 };
 
+export type MintingProps = {
+  iAIamount: BigInt;
+  numberOfTokens: number;
+  uriNumber: number;
+};
 
 // Get balance of for token owner
 export const ERC20BalanceOf = (props: BalanceProps) => {
@@ -42,12 +47,12 @@ export const ERC721BalanceOf = (props: BalanceProps) => {
   return data as BigNumber;
 };
 
-export const MintWarhol = (numberOfTokens: number) => {
+export const MintWarhol = (props: MintingProps) => {
   const { config } = usePrepareContractWrite({
     address: MintContractTestAddress,
     abi: WarholJson.abi,
     functionName: 'mint',
-    args: [numberOfTokens],
+    args: [props.iAIamount, props.numberOfTokens, props.uriNumber]
   });
   return config;
 };
