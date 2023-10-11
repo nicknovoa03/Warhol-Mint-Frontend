@@ -12,7 +12,7 @@ import { ERC20BalanceOf } from '../../../../components/contracts/wagmiContracts'
 import { useAccount } from 'wagmi';
 import getNFTMetadata from '../../../../components/nfts/NFTMetadata';
 import Image from 'next/image';
-import WarholImage from '../../../../../public/NFT-image.png';
+import WarholImage from '../../../../../public/WarholFineArt.png';
 import AiImage from '../../../../../public/AI.jpg';
 import PhysicalWarholImage from '../../../../../public/background.jpg';
 

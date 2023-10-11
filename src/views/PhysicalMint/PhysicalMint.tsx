@@ -14,7 +14,7 @@ import { ERC20Allowance, ApprovePoolPreparedContract, MintWarhol } from '../../c
 import { MintContractTestAddress } from '../../components/contracts/contractAddresses';
 import { parseEther } from 'viem';
 import Image from 'next/image';
-import WarholImage from '../../../public/NFT-image.png';
+import WarholImage from '../../../public/background.jpg';
 import axios from 'axios';
 
 function Pool1() {
