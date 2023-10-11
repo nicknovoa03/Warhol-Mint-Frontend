@@ -15,11 +15,11 @@ import { MintContractTestAddress } from '../../components/contracts/contractAddr
 import { parseEther } from 'viem';
 import Image from 'next/image';
 import WarholImage from '../../../public/NFT-image.png';
-import { reserve } from '../../components/contracts/appCaller';
 import axios from 'axios';
 
 function FractionalMint() {
-  let [iAIprice, setiAIprice] = useState<number>(0.0);
+  let [iAIprice, setiAIprice] = useState<number>(0.25);
+  let [totalPrice, setTotalPrice] = useState<BigInt>(BigInt(0));
   let [balanceAmount, setBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
   let [mintAmount, setMintAmount] = useState<number>(1);
   let [allowanceSet, setAllowance] = useState(false);
@@ -78,14 +78,18 @@ function FractionalMint() {
     hash: approveData?.hash
   });
 
-  // Mint
-  const fractionalMintConfig = MintWarhol(mintAmount);
+  function handleSlider(event: Event | React.SyntheticEvent, value: number | number[]) {
+    event.preventDefault();
+    if (!Array.isArray(value)) {
+      setMintAmount(value);
+    }
+  }
 
-  const { data: mintdata, write: mintWrite } = useContractWrite(fractionalMintConfig);
-
-  const { isLoading: mintIsLoading, isSuccess: mintIsSuccessful } = useWaitForTransaction({
-    hash: mintdata?.hash
-  });
+  useEffect(() => {
+    const tempPrice = BigInt(Math.round((usdAmount / iAIprice) * mintAmount) * 10 ** 18);
+    console.log('totalPrice:', tempPrice);
+    setTotalPrice(tempPrice);
+  }, [mintAmount, iAIprice]);
 
   useEffect(() => {
     if (balanceData) {
@@ -106,20 +110,14 @@ function FractionalMint() {
     setConnectedAddress(address);
   }, [isConnected]);
 
-  function handleSlider(event: Event | React.SyntheticEvent, value: number | number[]) {
-    event.preventDefault();
-    if (!Array.isArray(value)) {
-      setMintAmount(value);
-    }
-  }
+  // Mint
+  const fractionalMintConfig = MintWarhol({ iAIamount: totalPrice, numberOfTokens: mintAmount, uriNumber: 2 });
 
-  async function executeMint() {
-    // usd price divided by iAI price, then mutiply times amount to mint
-    purchaseCost = parseFloat((usdAmount / iAIprice).toFixed(2)) * mintAmount;
-    console.log('iai cost:', purchaseCost);
-    //mintWrite?.();
-    //reserve(connectedAddress, iAiCost, mintAmount, 1);
-  }
+  const { data: mintdata, write: mintWrite } = useContractWrite(fractionalMintConfig);
+
+  const { isLoading: mintIsLoading, isSuccess: mintIsSuccessful } = useWaitForTransaction({
+    hash: mintdata?.hash
+  });
 
   return (
     <>
@@ -255,7 +253,7 @@ function FractionalMint() {
                         valueLabelDisplay="auto"
                         aria-label="Mint Amount"
                         marks={true}
-                        min={1}
+                        min={0}
                         max={2}
                         sx={{
                           mt: 0,
@@ -287,7 +285,7 @@ function FractionalMint() {
                         {isLoadingERC20Approve ? 'Approving...' : `Approve  $iAi`}
                       </MainButton>
                     ) : (
-                      <MainButton fullWidth variant="contained" onClick={() => executeMint()}>
+                      <MainButton fullWidth variant="contained" onClick={() => mintWrite?.()}>
                         {mintIsLoading ? 'Minting... ' : `Mint ${mintAmount} Fine Art Spawn `}
                       </MainButton>
                     )}
