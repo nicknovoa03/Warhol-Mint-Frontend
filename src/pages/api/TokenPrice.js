@@ -1,7 +1,6 @@
 // components/TokenPrice.js
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Typography } from '@mui/material';
 
 const TokenPrice = () => {
   let [price, setPrice] = useState(null);

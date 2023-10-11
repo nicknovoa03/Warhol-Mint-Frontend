@@ -23,13 +23,11 @@ function AiBotMint() {
   let [balanceAmount, setBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
   let [allowanceSet, setAllowance] = useState(false);
   let [allowanceAmount, setAllowanceAmount] = useState<number>(0);
-  let [poolAmount, setPoolAmount] = useState<BigNumber>(BigNumber.from(0));
   let [connectedAddress, setConnectedAddress] = useState<`0x${string}` | undefined>();
   let { address, isConnected } = useAccount();
   const blockExplorer = 'https://etherscan.com';
   const usdAmount = 260;
   const coin = 'inheritance-art'; // Access the coin symbol from the query parameters
-  let purchaseCost;
 
   // User Balance
   const balanceData = ERC20BalanceOf({

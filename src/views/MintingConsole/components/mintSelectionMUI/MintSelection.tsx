@@ -7,10 +7,7 @@ import Button from '@mui/material/Button';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import { BigNumber } from 'ethers';
-import { ERC20BalanceOf } from '../../../../components/contracts/wagmiContracts';
 import { useAccount } from 'wagmi';
-import getNFTMetadata from '../../../../components/nfts/NFTMetadata';
 import Image from 'next/image';
 import WarholImage from '../../../../../public/WarholFineArt.png';
 import AiImage from '../../../../../public/AI.jpg';
@@ -40,33 +37,12 @@ const pools = [
 const MintSelection = () => {
   const theme = useTheme();
   let [connectedAddress, setConnectedAddress] = useState<`0x${string}` | undefined>();
-  let [iAIbalanceAmount, setiAIBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
-  let [nftMetadata, setNFTMetadata] = useState<string[]>([]);
-
   let { address, isConnected } = useAccount();
 
   // Save Connected Address to state
   useEffect(() => {
-    setConnectedAddress(address);
+      setConnectedAddress(address);
   }, [isConnected]);
-
-  // set NFT's Owned
-  useEffect(() => {
-    fetchData();
-  }, [connectedAddress]);
-
-  async function fetchData() {
-    const loadNftMetadata = await getNFTMetadata(connectedAddress!);
-    setNFTMetadata(loadNftMetadata);
-  }
-
-  // User erc20 Balance
-  const iAIBalanceData = ERC20BalanceOf({ ownerAddress: connectedAddress! });
-  useEffect(() => {
-    if (iAIBalanceData) {
-      setiAIBalanceAmount(iAIBalanceData);
-    }
-  }, [iAIBalanceData]);
 
   return (
     <Grid container spacing={4}>

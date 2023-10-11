@@ -24,13 +24,11 @@ function FractionalMint() {
   let [mintAmount, setMintAmount] = useState<number>(1);
   let [allowanceSet, setAllowance] = useState(false);
   let [allowanceAmount, setAllowanceAmount] = useState<number>(0);
-  let [poolAmount, setPoolAmount] = useState<BigNumber>(BigNumber.from(0));
   let [connectedAddress, setConnectedAddress] = useState<`0x${string}` | undefined>();
   let { address, isConnected } = useAccount();
   const blockExplorer = 'https://etherscan.com';
   const usdAmount = 200;
   const coin = 'inheritance-art'; // Access the coin symbol from the query parameters
-  let purchaseCost;
 
   //iAI price
   useEffect(() => {

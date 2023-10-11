@@ -14,8 +14,6 @@ import TokenPrice from '../../pages/api/TokenPrice';
 function MintingConsole() {
   let [connectedAddress, setConnectedAddress] = useState<`0x${string}` | undefined>();
   let [iAIbalanceAmount, setiAIBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
-  let [price, setPrice] = useState<number>(0);
-
   let { address, isConnected } = useAccount();
 
   // User erc20 Balance
