@@ -18,7 +18,8 @@ import AiImage from '../../../public/AI.jpg';
 import axios from 'axios';
 
 function AiBotMint() {
-  let [iAIprice, setiAIprice] = useState<number>(0.0);
+  let [iAIprice, setiAIprice] = useState<number>(0.25);
+  let [totalPrice, setTotalPrice] = useState<BigInt>(BigInt(0));
   let [balanceAmount, setBalanceAmount] = useState<BigNumber>(BigNumber.from(0));
   let [allowanceSet, setAllowance] = useState(false);
   let [allowanceAmount, setAllowanceAmount] = useState<number>(0);
@@ -29,30 +30,6 @@ function AiBotMint() {
   const usdAmount = 260;
   const coin = 'inheritance-art'; // Access the coin symbol from the query parameters
   let purchaseCost;
-
-  //iAI price
-  useEffect(() => {
-    const fetchTokenPrice = async () => {
-      try {
-        const response = await axios.get(
-          'https://api.coingecko.com/api/v3/simple/price?ids=inheritance-art&vs_currencies=usd'
-        );
-
-        const data = response.data;
-        if (data && data[coin] && data[coin].usd) {
-          setiAIprice(data[coin].usd);
-        } else {
-          console.log(data);
-          setiAIprice(0.0);
-        }
-      } catch (error) {
-        console.error('Error fetching token price:', error);
-        setiAIprice(0.0);
-      }
-    };
-
-    fetchTokenPrice();
-  }, []);
 
   // User Balance
   const balanceData = ERC20BalanceOf({
@@ -77,15 +54,29 @@ function AiBotMint() {
     hash: approveData?.hash
   });
 
-  // Mint
-  const AiMintConfig = MintWarhol(1);
+  //iAI price
+  useEffect(() => {
+    const fetchTokenPrice = async () => {
+      try {
+        const response = await axios.get(
+          'https://api.coingecko.com/api/v3/simple/price?ids=inheritance-art&vs_currencies=usd'
+        );
 
-  const { data: mintData, write: mintWrite } = useContractWrite(AiMintConfig);
+        const data = response.data;
+        if (data && data[coin] && data[coin].usd) {
+          setiAIprice(data[coin].usd);
+        } else {
+          console.log(data);
+          setiAIprice(0.0);
+        }
+      } catch (error) {
+        console.error('Error fetching token price:', error);
+        setiAIprice(0.0);
+      }
+    };
 
-  const { isLoading: mintIsLoading, isSuccess: mintIsSucccessful } = useWaitForTransaction({
-    hash: mintData?.hash
-  });
-
+    fetchTokenPrice();
+  }, []);
   useEffect(() => {
     if (balanceData) {
       setBalanceAmount(balanceData);
@@ -105,13 +96,24 @@ function AiBotMint() {
     setConnectedAddress(address);
   }, [isConnected]);
 
-  async function executeMint() {
-    // usd price divided by iAI price, then mutiply times amount to mint
-    purchaseCost = parseFloat((usdAmount / iAIprice).toFixed(2));
-    console.log('iai cost:', purchaseCost);
-    //mintWrite?.();
-    //reserve(connectedAddress, iAiCost, mintAmount, 1);
-  }
+  useEffect(() => {
+    const tempPrice = BigInt(Math.round(usdAmount / iAIprice) * 10 ** 18);
+    console.log('totalPrice:', tempPrice);
+    setTotalPrice(tempPrice);
+  }, [iAIprice]);
+
+  // Mint
+  const AiMintConfig = MintWarhol({
+    iAIamount: totalPrice,
+    numberOfTokens: 1,
+    uriNumber: 3
+  });
+
+  const { data: mintData, write: mintWrite } = useContractWrite(AiMintConfig);
+
+  const { isLoading: mintIsLoading, isSuccess: mintIsSucccessful } = useWaitForTransaction({
+    hash: mintData?.hash
+  });
 
   return (
     <>
@@ -243,7 +245,7 @@ function AiBotMint() {
                 </Typography>
                 {connectedAddress ? (
                   <>
-                    {allowanceSet ? (
+                    {!allowanceSet ? (
                       <MainButton
                         fullWidth
                         variant="contained"
@@ -259,7 +261,7 @@ function AiBotMint() {
                         disabled={!mintWrite || mintIsLoading}
                         onClick={() => mintWrite?.()}
                       >
-                        {mintIsLoading ? 'Locking... ' : `Reserve`}
+                        {mintIsLoading ? 'Reserving... ' : `Reserve`}
                       </MainButton>
                     )}
                     {approveIsSuccessful && (
