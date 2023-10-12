@@ -49,7 +49,7 @@ function MintingConsole() {
             >
               <Box display={'flex'} flexDirection={'column'} maxWidth={700}>
                 <Typography variant="h4" align="center" color="white" fontWeight={'bold'} data-aos={'zoom-out-down'}>
-                  Inheritance Store
+                  inheritance Store
                 </Typography>
                 <Typography variant="subtitle1" align="center" sx={{ my: 2 }} color="white" data-aos={'zoom-out-up'}>
                   The art world is about to undergo a transformation. Fine Art Spawns, a new product line by inheritance

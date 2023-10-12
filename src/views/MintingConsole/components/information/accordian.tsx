@@ -32,8 +32,8 @@ export default function SimpleAccordion() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            AI Model will respond to spoken language with general information about the subject provided in prerecorded
-            responses purchased.
+            Ai Human Models are semi-autonomous and fully capable of natural language processing, imbuing these digital
+            creations with life, personality, and incredible capabilities.
           </Typography>
         </AccordionDetails>
       </Accordion>

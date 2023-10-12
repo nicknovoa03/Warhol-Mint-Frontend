@@ -152,7 +152,7 @@ function AiBotMint() {
                     </Grid>
                     <Grid item sm={12}>
                       <Typography fontSize={14} align="center" color="white">
-                        Mint an NFT to register you for you&apos;re own AI bot
+                        Make a reservation for your personal Ai Human Model
                       </Typography>
                     </Grid>
                   </Grid>
@@ -186,8 +186,8 @@ function AiBotMint() {
                   AI Information:
                 </Typography>
                 <Typography fontSize={12} align="center" color="white" data-aos={'flip-left'} marginTop={-2}>
-                  <br /> AI Model will respond to spoken language with general information about the subject provided in
-                  prerecorded responses
+                  <br /> Ai Human Models are semi-autonomous and fully capable of natural language processing, imbuing
+                  these digital creations with life, personality, and incredible capabilities.
                 </Typography>
               </Box>
               <Box display={'flex'} flexDirection={'column'} marginTop={3} maxWidth={350}>
@@ -201,8 +201,8 @@ function AiBotMint() {
                   Mint Instructions:
                 </Typography>
                 <Typography fontSize={12} align="center" color="white" data-aos={'flip-left'} marginTop={-2}>
-                  <br /> To mint your NFT, connect your wallet to our minting dapp here, sign the transaction and
-                  confirm it in your wallet.
+                  <br /> To reserve your Ai Human Model, connect your wallet to our smart contract here, sign the
+                  transaction and confirm it in your wallet.
                 </Typography>
               </Box>
               <Box
