@@ -41,7 +41,7 @@ const MintSelection = () => {
 
   // Save Connected Address to state
   useEffect(() => {
-      setConnectedAddress(address);
+    setConnectedAddress(address);
   }, [isConnected]);
 
   return (
