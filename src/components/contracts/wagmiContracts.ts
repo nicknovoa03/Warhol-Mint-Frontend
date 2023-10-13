@@ -71,7 +71,7 @@ export const ApprovePoolPreparedContract = (props: erc20ApproveProps) => {
 // Get Allowance for token owner and spender
 export const ERC20Allowance = (props: AllowanceProps) => {
   const { data } = useContractRead({
-    address: NFT_ContractAddress,
+    address: iAI_ContractAddress,
     abi: erc20ABI,
     functionName: 'allowance',
     args: [props.ownerAddress!, props.spenderAddress]
