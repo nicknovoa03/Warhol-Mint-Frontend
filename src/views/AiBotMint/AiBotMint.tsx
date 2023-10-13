@@ -11,7 +11,7 @@ import theme from '../../theme';
 import { ContractAddress, WalletAddress } from '../../components/form/stakeElements';
 import { ERC20BalanceOf } from '../../components/contracts/wagmiContracts';
 import { ERC20Allowance, ApprovePoolPreparedContract, MintWarhol } from '../../components/contracts/wagmiContracts';
-import { MintContractTestAddress } from '../../components/contracts/contractAddresses';
+import { NFT_ContractAddress } from '../../components/contracts/contractAddresses';
 import { parseEther } from 'viem';
 import Image from 'next/image';
 import AiImage from '../../../public/AI.jpg';
@@ -37,13 +37,13 @@ function AiBotMint() {
   // Allowance
   const allowanceData = ERC20Allowance({
     ownerAddress: connectedAddress,
-    spenderAddress: MintContractTestAddress
+    spenderAddress: NFT_ContractAddress
   });
 
   // Approve
   const approveConfig = ApprovePoolPreparedContract({
     tokenAmount: parseEther((100000000).toString()),
-    spenderAddress: MintContractTestAddress
+    spenderAddress: NFT_ContractAddress
   });
 
   const { data: approveData, write: writeERC20Approve } = useContractWrite(approveConfig);
@@ -286,7 +286,7 @@ function AiBotMint() {
                         </Link>
                       </>
                     )}
-                    <ContractAddress address={MintContractTestAddress} />
+                    <ContractAddress address={NFT_ContractAddress} />
                     <Web3Button />
                     <WalletAddress address={connectedAddress} />
                   </>

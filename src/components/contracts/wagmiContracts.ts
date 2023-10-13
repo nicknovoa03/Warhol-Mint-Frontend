@@ -2,7 +2,7 @@ import { BigNumber } from 'ethers';
 import { useContractRead, erc20ABI, usePrepareContractWrite } from 'wagmi';
 import TokenEth from './ABI/TokenEth.json';
 import Collection9022 from './ABI/Collection9022.json';
-import { MintContractTestAddress, testiAIaddress } from './contractAddresses';
+import { NFT_ContractAddress, iAI_ContractAddress } from './contractAddresses';
 import WarholJson from './ABI/warhol.json';
 
 export type AllowanceProps = {
@@ -26,20 +26,9 @@ export type MintingProps = {
 };
 
 // Get balance of for token owner
-export const ERC20BalanceOf = (props: BalanceProps) => {
-  const { data } = useContractRead({
-    address: testiAIaddress,
-    abi: TokenEth.abi,
-    functionName: 'balanceOf',
-    args: [props.ownerAddress!]
-  });
-  return data as BigNumber;
-};
-
-// Get balance of for token owner
 export const ERC721BalanceOf = (props: BalanceProps) => {
   const { data } = useContractRead({
-    address: MintContractTestAddress,
+    address: NFT_ContractAddress,
     abi: Collection9022.abi,
     functionName: 'balanceOf',
     args: [props.ownerAddress!]
@@ -49,7 +38,7 @@ export const ERC721BalanceOf = (props: BalanceProps) => {
 
 export const MintWarhol = (props: MintingProps) => {
   const { config } = usePrepareContractWrite({
-    address: MintContractTestAddress,
+    address: NFT_ContractAddress,
     abi: WarholJson.abi,
     functionName: 'mint',
     args: [props.iAIamount, props.numberOfTokens, props.uriNumber]
@@ -57,10 +46,21 @@ export const MintWarhol = (props: MintingProps) => {
   return config;
 };
 
+// Get balance of for token owner
+export const ERC20BalanceOf = (props: BalanceProps) => {
+  const { data } = useContractRead({
+    address: iAI_ContractAddress,
+    abi: TokenEth.abi,
+    functionName: 'balanceOf',
+    args: [props.ownerAddress!]
+  });
+  return data as BigNumber;
+};
+
 // Approve token for tokenTransfer
 export const ApprovePoolPreparedContract = (props: erc20ApproveProps) => {
   const { config } = usePrepareContractWrite({
-    address: testiAIaddress,
+    address: iAI_ContractAddress,
     abi: erc20ABI,
     functionName: 'approve',
     args: [props.spenderAddress, props.tokenAmount]
@@ -71,7 +71,7 @@ export const ApprovePoolPreparedContract = (props: erc20ApproveProps) => {
 // Get Allowance for token owner and spender
 export const ERC20Allowance = (props: AllowanceProps) => {
   const { data } = useContractRead({
-    address: testiAIaddress,
+    address: NFT_ContractAddress,
     abi: erc20ABI,
     functionName: 'allowance',
     args: [props.ownerAddress!, props.spenderAddress]
