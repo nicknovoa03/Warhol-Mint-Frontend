@@ -26,7 +26,7 @@ function AiBotMint() {
   let [connectedAddress, setConnectedAddress] = useState<`0x${string}` | undefined>();
   let { address, isConnected } = useAccount();
   const blockExplorer = 'https://etherscan.com';
-  const usdAmount = 260;
+  const usdAmount = 1000;
   const coin = 'inheritance-art'; // Access the coin symbol from the query parameters
 
   // User Balance
