@@ -283,7 +283,12 @@ function FractionalMint() {
                         {isLoadingERC20Approve ? 'Approving...' : `Approve  $iAi`}
                       </MainButton>
                     ) : (
-                      <MainButton fullWidth variant="contained" onClick={() => mintWrite?.()}>
+                      <MainButton
+                        fullWidth
+                        variant="contained"
+                        disabled={!mintWrite || mintIsLoading}
+                        onClick={() => mintWrite?.()}
+                      >
                         {mintIsLoading ? 'Minting... ' : `Mint ${mintAmount} Fine Art Spawn `}
                       </MainButton>
                     )}
