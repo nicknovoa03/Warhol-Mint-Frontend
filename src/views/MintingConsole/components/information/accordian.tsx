@@ -23,7 +23,7 @@ export default function SimpleAccordion() {
           <Typography>Warhol Fine Art Spawn</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>Own a physical copy of a original Warhol artwork</Typography>
+          <Typography>Own a physical share of a original Warhol artwork</Typography>
         </AccordionDetails>
       </Accordion>
       <Accordion>
